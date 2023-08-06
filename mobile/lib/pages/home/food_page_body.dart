@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:food_express/controller/popular_product_controller.dart';
 import 'package:food_express/utils/colors.dart';
 import 'package:food_express/widgets/big_text.dart';
 import 'package:get/get.dart';
-
-import '../../model/product_model.dart';
 import '../../routes/route_helper.dart';
 import '../../utils/dimensions.dart';
 import '../../widgets/app_search_bar_widget.dart';
@@ -65,7 +64,7 @@ class _FoodPageBodyState extends State<FoodPageBody> {
             controller: pageController,
             itemCount: 2,
             itemBuilder: (context, position) {
-              return _buildPageItem(position, ProductModel());
+              return _buildPageItem(position);
             },
           ),
         ),
@@ -89,76 +88,88 @@ class _FoodPageBodyState extends State<FoodPageBody> {
             ],
           ),
         ),
-        ListView.builder(
-          physics: const NeverScrollableScrollPhysics(),
-          shrinkWrap: true,
-          itemCount: 5,
-          itemBuilder: (context, index) {
-            return GestureDetector(
-              onTap: () {
-                Get.toNamed(RouteHelper.getPopularFood(index, 'home'));
-              },
-              child: Container(
-                margin: EdgeInsets.only(left: Dimensions.width10, right: Dimensions.width10, bottom: Dimensions.height10),
-                child: Row(
-                  children: [
-                    //image section
-                    Container(
-                      width: Dimensions.listViewImgSize,
-                      height: Dimensions.listViewImgSize,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(Dimensions.radius20),
-                          image: const DecorationImage(
-                              fit: BoxFit.cover,
-                              image: AssetImage(
-                                "asset/indian_chicken_biriryani.jpg",
-                              ))),
-                    ),
-                    //text section
-                    Expanded(
+        GetBuilder<PopularProductController>(builder: (popularProductController) {
+          return popularProductController.isloaded
+              ? ListView.builder(
+                  physics: const NeverScrollableScrollPhysics(),
+                  shrinkWrap: true,
+                  itemCount: popularProductController.popularProductList.length,
+                  itemBuilder: (context, index) {
+                    return GestureDetector(
+                      onTap: () {
+                        Get.toNamed(RouteHelper.getPopularFood(index, 'home'));
+                      },
                       child: Container(
-                        height: Dimensions.listViewTextContSize,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.only(
-                                topRight: Radius.circular(Dimensions.radius20),
-                                bottomRight: Radius.circular(Dimensions.radius20)),
-                            color: Colors.white),
-                        child: Padding(
-                          padding: EdgeInsets.only(left: Dimensions.width10, right: Dimensions.width10),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              BigText(text: "Popular ${index + 1}"),
-                              const SmallText(text: "With Chinese characteristics"),
-                              SizedBox(
-                                height: Dimensions.height20,
+                        margin: EdgeInsets.only(left: Dimensions.width10, right: Dimensions.width10, bottom: Dimensions.height10),
+                        child: Row(
+                          children: [
+                            //image section
+                            Container(
+                              width: Dimensions.listViewImgSize,
+                              height: Dimensions.listViewImgSize,
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(Dimensions.radius20),
+                                  image: const DecorationImage(
+                                      fit: BoxFit.cover,
+                                      image: AssetImage(
+                                        "asset/indian_chicken_biriryani.jpg",
+                                      ))),
+                            ),
+                            //text section
+                            Expanded(
+                              child: Container(
+                                height: Dimensions.listViewTextContSize,
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.only(
+                                        topRight: Radius.circular(Dimensions.radius20),
+                                        bottomRight: Radius.circular(Dimensions.radius20)),
+                                    color: Colors.white),
+                                child: Padding(
+                                  padding: EdgeInsets.only(left: Dimensions.width10, right: Dimensions.width10),
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                    children: [
+                                      BigText(text: popularProductController.popularProductList[index].name),
+                                      SmallText(
+                                          text: popularProductController.popularProductList[index].description.length < 24
+                                              ? popularProductController.popularProductList[index].description
+                                              : "One of the Popular and most rated food"),
+                                      SizedBox(
+                                        height: Dimensions.height20,
+                                      ),
+                                      const Row(
+                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          IconAndTextWidget(
+                                              icon: Icons.circle_sharp, text: "Normal", iconColor: AppColors.iconColor1),
+                                          IconAndTextWidget(
+                                              icon: Icons.location_on, text: "1.7km", iconColor: AppColors.iconColor2),
+                                          IconAndTextWidget(
+                                              icon: Icons.access_time_rounded, text: "32 min", iconColor: AppColors.iconColor2),
+                                        ],
+                                      )
+                                    ],
+                                  ),
+                                ),
                               ),
-                              const Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: [
-                                  IconAndTextWidget(icon: Icons.circle_sharp, text: "Normal", iconColor: AppColors.iconColor1),
-                                  IconAndTextWidget(icon: Icons.location_on, text: "1.7km", iconColor: AppColors.iconColor2),
-                                  IconAndTextWidget(
-                                      icon: Icons.access_time_rounded, text: "32 min", iconColor: AppColors.iconColor2),
-                                ],
-                              )
-                            ],
-                          ),
+                            )
+                          ],
                         ),
                       ),
-                    )
-                  ],
-                ),
-              ),
-            );
-          },
-        )
+                    );
+                  },
+                )
+              : const CircularProgressIndicator();
+        })
       ],
     );
   }
 
-  Widget _buildPageItem(int index, ProductModel popularProduct) {
+  Widget _buildPageItem(
+    int index,
+  ) {
+    //Add this args -> ProductModel? popularProduct
     Matrix4 matrix = Matrix4.identity();
     if (index == _currentPageValue.floor()) {
       var currScale = 1 - (_currentPageValue - index) * (1 - _scaleFactor);

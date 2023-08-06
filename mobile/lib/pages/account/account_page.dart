@@ -22,6 +22,7 @@ class AccountPage extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              SizedBox(width: 10),
               AppIcon(
                   icon: Icons.person,
                   backgroundColor: AppColors.mainColor,

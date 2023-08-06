@@ -7,10 +7,11 @@ import 'icon_and_text.dart';
 import 'small_text.dart';
 
 class AppColumn extends StatelessWidget {
-  const AppColumn({super.key, required this.text, required this.price});
+  const AppColumn({super.key, required this.text, required this.price, required this.rating});
 
   final String text;
   final String price;
+  final double rating;
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +42,7 @@ class AppColumn extends StatelessWidget {
           children: [
             Wrap(
               children: List.generate(
-                  5,
+                  rating.toInt(),
                   (index) => const Icon(
                         Icons.star,
                         color: Colors.amber,
@@ -50,8 +51,8 @@ class AppColumn extends StatelessWidget {
             const SizedBox(
               width: 20,
             ),
-            const SmallText(
-              text: "4.5",
+            SmallText(
+              text: rating.toString(),
               color: AppColors.mainBlackColor,
             ),
             const SizedBox(

@@ -38,6 +38,8 @@ dependencies:
   get: ^4.6.5
   intl: ^0.18.1
   dots_indicator: ^3.0.0
+  connectivity_plus: ^4.0.2
+  http: ^1.1.0
 
 dev_dependencies:
   flutter_test:

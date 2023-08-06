@@ -17,6 +17,7 @@ INJECTED from /Users/afluxmhd/My Projects/food_express/mobile/android/app/src/ma
 INJECTED from /Users/afluxmhd/My Projects/food_express/mobile/android/app/src/main/AndroidManifest.xml:1:1-33:12
 INJECTED from /Users/afluxmhd/My Projects/food_express/mobile/android/app/src/main/AndroidManifest.xml:1:1-33:12
 MERGED from /Users/afluxmhd/My Projects/food_express/mobile/android/app/src/main/AndroidManifest.xml:1:1-33:12
+MERGED from [:connectivity_plus] /Users/afluxmhd/My Projects/food_express/mobile/build/connectivity_plus/intermediates/merged_manifest/debug/AndroidManifest.xml:2:1-11:12
 MERGED from [androidx.window:window-java:1.0.0-beta04] /Users/afluxmhd/.gradle/caches/transforms-3/ae81e06d24c799147c26814497a2a305/transformed/jetified-window-java-1.0.0-beta04/AndroidManifest.xml:17:1-23:12
 MERGED from [androidx.window:window:1.0.0-beta04] /Users/afluxmhd/.gradle/caches/transforms-3/25cee5f028ac2a6b79fd6278ff5b59e2/transformed/jetified-window-1.0.0-beta04/AndroidManifest.xml:17:1-33:12
 MERGED from [androidx.fragment:fragment:1.1.0] /Users/afluxmhd/.gradle/caches/transforms-3/75f94412898c7559d34d7edbbeaeb394/transformed/fragment-1.1.0/AndroidManifest.xml:17:1-24:12
@@ -55,6 +56,8 @@ uses-sdk
 INJECTED from /Users/afluxmhd/My Projects/food_express/mobile/android/app/src/main/AndroidManifest.xml reason: use-sdk injection requested
 INJECTED from /Users/afluxmhd/My Projects/food_express/mobile/android/app/src/main/AndroidManifest.xml
 INJECTED from /Users/afluxmhd/My Projects/food_express/mobile/android/app/src/main/AndroidManifest.xml
+MERGED from [:connectivity_plus] /Users/afluxmhd/My Projects/food_express/mobile/build/connectivity_plus/intermediates/merged_manifest/debug/AndroidManifest.xml:5:5-7:41
+MERGED from [:connectivity_plus] /Users/afluxmhd/My Projects/food_express/mobile/build/connectivity_plus/intermediates/merged_manifest/debug/AndroidManifest.xml:5:5-7:41
 MERGED from [androidx.window:window-java:1.0.0-beta04] /Users/afluxmhd/.gradle/caches/transforms-3/ae81e06d24c799147c26814497a2a305/transformed/jetified-window-java-1.0.0-beta04/AndroidManifest.xml:19:5-21:41
 MERGED from [androidx.window:window-java:1.0.0-beta04] /Users/afluxmhd/.gradle/caches/transforms-3/ae81e06d24c799147c26814497a2a305/transformed/jetified-window-java-1.0.0-beta04/AndroidManifest.xml:19:5-21:41
 MERGED from [androidx.window:window:1.0.0-beta04] /Users/afluxmhd/.gradle/caches/transforms-3/25cee5f028ac2a6b79fd6278ff5b59e2/transformed/jetified-window-1.0.0-beta04/AndroidManifest.xml:20:5-22:41
@@ -101,6 +104,10 @@ uses-permission#android.permission.INTERNET
 ADDED from /Users/afluxmhd/My Projects/food_express/mobile/android/app/src/debug/AndroidManifest.xml:6:5-66
 	android:name
 		ADDED from /Users/afluxmhd/My Projects/food_express/mobile/android/app/src/debug/AndroidManifest.xml:6:22-64
+uses-permission#android.permission.ACCESS_NETWORK_STATE
+ADDED from [:connectivity_plus] /Users/afluxmhd/My Projects/food_express/mobile/build/connectivity_plus/intermediates/merged_manifest/debug/AndroidManifest.xml:9:5-79
+	android:name
+		ADDED from [:connectivity_plus] /Users/afluxmhd/My Projects/food_express/mobile/build/connectivity_plus/intermediates/merged_manifest/debug/AndroidManifest.xml:9:22-76
 uses-library#androidx.window.extensions
 ADDED from [androidx.window:window:1.0.0-beta04] /Users/afluxmhd/.gradle/caches/transforms-3/25cee5f028ac2a6b79fd6278ff5b59e2/transformed/jetified-window-1.0.0-beta04/AndroidManifest.xml:25:9-27:40
 	android:required

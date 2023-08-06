@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:food_express/controller/popular_product_controller.dart';
 import 'package:food_express/pages/account/account_page.dart';
 import 'package:food_express/pages/cart/my_orders_page.dart';
 import 'package:food_express/pages/home/main_food_page.dart';
 import 'package:food_express/pages/notification/notification_page.dart';
-
+import 'package:get/get.dart';
 import '../../utils/colors.dart';
 
 class HomePage extends StatefulWidget {

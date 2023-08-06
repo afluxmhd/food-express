@@ -1,11 +1,12 @@
 import 'package:food_express/pages/account/account_page.dart';
 import 'package:food_express/pages/account/edit_profile_page.dart';
 import 'package:food_express/pages/location/location_page.dart';
+import 'package:food_express/pages/splash/splash_page.dart';
 import 'package:get/get.dart';
 import '../pages/account/auth/sign_in_page.dart';
 import '../pages/account/auth/sign_up_page.dart';
 import '../pages/cart/cart_page.dart';
-import '../pages/food/recommend_food_details.dart';
+import '../pages/food/popular_food_details.dart';
 import '../pages/home/home_page.dart';
 
 class RouteHelper {
@@ -19,7 +20,7 @@ class RouteHelper {
   static const String signUp = "/sign-up";
   static const String signIn = "/sign-in";
 
-  static String getSplash() => splashPage;
+  static String getSplashPage() => splashPage;
   static String getInitial(int index) => '$initial?index=$index';
   static String getPopularFood(int pageId, String page) => '$popularFood?pageId=$pageId&page=$page';
   static String getEditProfilePage() => editprofile;
@@ -30,11 +31,11 @@ class RouteHelper {
   static String getSignInPage() => signIn;
 
   static List<GetPage> routes = [
-    // GetPage(
-    //     name: splashPage,
-    //     page: () {
-    //       return const SplashScreen();
-    //     }),
+    GetPage(
+        name: splashPage,
+        page: () {
+          return const SplashPage();
+        }),
     GetPage(
       name: initial,
       page: () {
