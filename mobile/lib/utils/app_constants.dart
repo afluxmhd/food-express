@@ -7,6 +7,9 @@ class AppConstants {
   //food endpoints
   static const String POPULAR_PRODUCT_URI = "/api/products/popular";
 
+  //orders endpoints
+  static const String ORDERS_URI = "/api/orders";
+
   //auth endpoints
   static const String REGISTRATION_URI = "/api/auth/register";
   static const String LOGIN_URI = "/api/auth/login";

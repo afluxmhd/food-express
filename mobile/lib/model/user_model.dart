@@ -7,13 +7,9 @@ class UserModel {
     required this.phone,
     required this.city,
   });
-  int id;
+  String id;
   String fullName;
   String email;
   String phone;
   String city;
-
-  factory UserModel.fromJson(Map<String, dynamic> json) {
-    return UserModel(id: json['id'], fullName: json['full_name'], email: json['email'], phone: json['phone'], city: json['city']);
-  }
 }

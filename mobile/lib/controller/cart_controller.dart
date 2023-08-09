@@ -1,5 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
+import 'package:food_express/model/order_model.dart';
 import 'package:get/get.dart';
 
 import 'package:food_express/data/repo/cart_repo.dart';
@@ -21,13 +22,13 @@ class CartController extends GetxController {
     var totalQuantity = 0;
     if (_items.containsKey(product.productId)) {
       _items.update(product.productId, (value) {
-        totalQuantity = value.quantity! + quantity;
+        totalQuantity = value.quantity + quantity;
         return CartModel(
           id: product.productId,
           name: product.name,
           price: product.price,
           img: product.img,
-          quantity: value.quantity! + quantity,
+          quantity: value.quantity + quantity,
           isExist: true,
           time: DateTime.now().toString(),
           product: product,
@@ -55,7 +56,7 @@ class CartController extends GetxController {
             backgroundColor: AppColors.mainColor, colorText: Colors.white);
       }
     }
-    //To Repo Storaage addItems()
+    addToCartList(); //Adding to CartRepo Storage
     update();
   }
 
@@ -71,7 +72,7 @@ class CartController extends GetxController {
     if (_items.containsKey(product.productId)) {
       _items.forEach((key, value) {
         if (key == product.productId) {
-          quantity = value.quantity!;
+          quantity = value.quantity;
         }
       });
     }
@@ -81,7 +82,7 @@ class CartController extends GetxController {
   int get totalItems {
     var totalQuantity = 0;
     _items.forEach((key, value) {
-      totalQuantity += value.quantity!;
+      totalQuantity += value.quantity;
     });
     return totalQuantity;
   }
@@ -92,10 +93,10 @@ class CartController extends GetxController {
     }).toList();
   }
 
-  int get totalAmount {
-    var total = 0;
+  double get totalAmount {
+    double total = 0;
     _items.forEach((key, value) {
-      total += value.quantity! * value.price!;
+      total += value.quantity * value.price;
     });
     return total;
   }
@@ -105,7 +106,7 @@ class CartController extends GetxController {
     storageItems = items;
 
     for (int i = 0; i < storageItems.length; i++) {
-      _items.putIfAbsent(storageItems[i].product!.productId, () => storageItems[i]);
+      _items.putIfAbsent(storageItems[i].product.productId, () => storageItems[i]);
     }
   }
 
@@ -114,31 +115,48 @@ class CartController extends GetxController {
     _items = setItems;
   }
 
+  void addToCartList() {
+    cartRepo.addToCartList(getItems);
+    update();
+  }
+
   List<CartModel> getCartdata() {
-    //_setCart = cartRepo.getCartList();
+    _setCart = cartRepo.getCartList();
     return storageItems;
   }
 
-  void addToHistory() {
-    //cartRepo.addToCartHistoryList();
-    clear();
+  void addToOrderList() {
+    List<OrderProduct> products = [];
+    int totalQuantity = 0;
+
+    for (var cart in getItems) {
+      products.add(OrderProduct(productId: cart.product.mongoId, quantity: cart.quantity));
+      totalQuantity += cart.quantity;
+    }
+
+    OrderModel order = OrderModel(
+      userId: "NoUSerID",
+      status: "Pending",
+      totalAmount: totalAmount,
+      totalQuantity: totalQuantity,
+      products: products,
+    );
+    dynamic orderBody = order.toMap();
+
+    cartRepo.addToOrderList(orderBody).then((response) {
+      if (response.statusCode == 200) {
+        Get.snackbar("Order Placed", "Your order will reach soon", backgroundColor: AppColors.mainColor, colorText: Colors.white);
+        clearCart();
+      } else {
+        print(response.statusCode);
+      }
+    });
   }
 
-  void clear() {
+  void clearCart() {
     _items = {};
-    update();
-  }
-//  List<CartModel> getCartHistoryList() {
-//     return cartRepo.getCartHistoryList();
-//   }
-
-  void clearCartHistory() {
-    //cartRepo.clearCartHistory();
-    update();
-  }
-
-  void addToCartList() {
-    //cartRepo.addToCartList(getItems);
+    cartRepo.removeCart();
+    print('Shared Preferences and ram cart removed');
     update();
   }
 }

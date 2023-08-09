@@ -1,4 +1,4 @@
-#Sat Aug 05 23:11:51 IST 2023
+#Wed Aug 09 11:22:45 IST 2023
 base.0=/Users/afluxmhd/My Projects/food_express/mobile/build/app/intermediates/dex/debug/mergeDexDebug/classes.dex
 path.0=classes.dex
 renamed.0=classes.dex

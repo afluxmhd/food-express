@@ -1,4 +1,4 @@
-
+var OrderModel = require('../model/order_model')
 var productModel = require('../model/product_model')
 
 
@@ -30,10 +30,34 @@ async function getPopularProductList (){
     }
 }
 
-const db = {
+async function addOrder(order){
+    try {
+        console.log('Received order:', order);
+        const newOrder = new OrderModel(order);
+        const savedOrder = await newOrder.save();
+        console.log('Saved order:', savedOrder);
+        return savedOrder;
+    } catch (err) {
+        throw err;
+    }
+}
+
+async function getOrders(userId){
+
+}
+
+const orderDb={
+    addOrder,
+    getOrders,
+}
+
+const productDb = {
     addPopularProduct,
     getPopularProductList,
     deletePopularProduct
   };
 
-module.exports = db
+module.exports = {
+    orderDb,
+    productDb,
+};

@@ -96,7 +96,7 @@ class CartPage extends StatelessWidget {
                                                   children: [
                                                     GestureDetector(
                                                       onTap: () {
-                                                        cartController.addItem(_cartList[index].product!, -1);
+                                                        cartController.addItem(_cartList[index].product, -1);
                                                       },
                                                       child: const Icon(Icons.remove, color: AppColors.signColor),
                                                     ),
@@ -109,7 +109,7 @@ class CartPage extends StatelessWidget {
                                                     ),
                                                     GestureDetector(
                                                       onTap: () {
-                                                        cartController.addItem(_cartList[index].product!, 1);
+                                                        cartController.addItem(_cartList[index].product, 1);
                                                       },
                                                       child: const Icon(Icons.add, color: AppColors.signColor),
                                                     ),
@@ -154,7 +154,7 @@ class CartPage extends StatelessWidget {
                   SizedBox(
                     width: Dimensions.width10 / 2,
                   ),
-                  BigText(text: '\$${cartController.totalAmount}'),
+                  BigText(text: '\$${cartController.totalAmount.toStringAsFixed(2)}'),
                   SizedBox(
                     width: Dimensions.width10 / 2,
                   ),
@@ -163,7 +163,7 @@ class CartPage extends StatelessWidget {
             ),
             GestureDetector(
               onTap: () {
-                //
+                cartController.addToOrderList();
               },
               child: Container(
                 padding: EdgeInsets.only(

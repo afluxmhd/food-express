@@ -11,3 +11,4 @@ com.example.food_express.app-mergeDebugResources-9 /Users/afluxmhd/My Projects/f
 com.example.food_express.app-mergeDebugResources-10 /Users/afluxmhd/My Projects/food_express/mobile/build/app/intermediates/incremental/debug/mergeDebugResources/stripped.dir
 com.example.food_express.app-merged_res-11 /Users/afluxmhd/My Projects/food_express/mobile/build/app/intermediates/merged_res/debug
 com.example.food_express.app-packaged_res-12 /Users/afluxmhd/My Projects/food_express/mobile/build/connectivity_plus/intermediates/packaged_res/debug
+com.example.food_express.app-packaged_res-13 /Users/afluxmhd/My Projects/food_express/mobile/build/shared_preferences_android/intermediates/packaged_res/debug

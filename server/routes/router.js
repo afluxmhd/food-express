@@ -46,6 +46,19 @@ route.post('/api/auth/login',controller.loginUser)
  */
 route.get('/api/user/info',controller.getUserInfo)
 
+
+/**
+ * @description create a new order
+ * @method POST/
+ */
+route.post('/api/orders',controller.createOrder)
+
+
+/**
+ * @description Retrieve all orders of a user
+ * @method GET/
+ */
+route.get('/api/orders/:id',controller.getOrders)
 module.exports = route;
 
 

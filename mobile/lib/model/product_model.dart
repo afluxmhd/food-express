@@ -1,8 +1,9 @@
 class ProductModel {
+  String mongoId;
   int productId;
   String name;
   String description;
-  int price;
+  double price;
   String img;
   double rating;
   int stars;
@@ -10,6 +11,7 @@ class ProductModel {
   String updatedAt;
 
   ProductModel({
+    required this.mongoId,
     required this.productId,
     required this.name,
     required this.description,
@@ -23,6 +25,7 @@ class ProductModel {
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
+      '_id': mongoId,
       'productId': productId,
       'name': name,
       'description': description,
@@ -37,10 +40,11 @@ class ProductModel {
 
   factory ProductModel.fromMap(Map<String, dynamic> map) {
     return ProductModel(
+      mongoId: map['_id'] as String,
       productId: map['productId'] as int,
       name: map['name'] as String,
       description: map['description'] as String,
-      price: map['price'] as int,
+      price: map['price'] as double,
       img: map['img'] as String,
       rating: map['rating'] as double,
       stars: map['stars'] as int,
