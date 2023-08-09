@@ -2,6 +2,9 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../../base/show_custom_snackbar.dart';
+import '../../../controller/auth_controller.dart';
+import '../../../model/auth_model.dart';
 import '../../../routes/route_helper.dart';
 import '../../../utils/colors.dart';
 import '../../../utils/dimensions.dart';
@@ -15,6 +18,38 @@ class SignInPage extends StatelessWidget {
   Widget build(BuildContext context) {
     var emailController = TextEditingController();
     var passwordController = TextEditingController();
+
+    void login() {
+      var authController = Get.find<AuthController>();
+
+      String email = emailController.text.trim();
+      String password = passwordController.text.trim();
+
+      if (email.isEmpty) {
+        showCustomSnackbar("Please enter your name", title: "Name");
+      } else if (password.isEmpty) {
+        showCustomSnackbar("Please enter your phone number", title: "Phone Number");
+      } else if (!GetUtils.isEmail(email)) {
+        showCustomSnackbar("Please enter a valid email address", title: "Email");
+      } else if (password.isEmpty) {
+        showCustomSnackbar("Please enter your password", title: "Password");
+      } else {
+        AuthModel user = AuthModel(email: email, password: password);
+        print('Email: ${user.email}');
+        print('Password: ${user.password}');
+
+        print(user.toMap());
+
+        authController.loginUser(user).then((response) {
+          if (response.isSuccess) {
+            showCustomSnackbar("Login successful! ${response.message}", title: "Success", isError: false);
+            Get.toNamed(RouteHelper.getInitial(0));
+          } else {
+            showCustomSnackbar(response.message, title: "Error");
+          }
+        });
+      }
+    }
 
     return Scaffold(
         backgroundColor: Colors.white,
@@ -95,7 +130,8 @@ class SignInPage extends StatelessWidget {
               SizedBox(height: Dimensions.height20 * 3),
               GestureDetector(
                 onTap: () {
-                  Get.toNamed(RouteHelper.getInitial(0));
+                  login();
+                  print('Login initiated');
                 },
                 child: Container(
                   margin: const EdgeInsets.only(left: 12, right: 12),

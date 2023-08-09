@@ -55,4 +55,8 @@ class CartRepo {
   Future<Response> addToOrderList(dynamic body) async {
     return await apiClient.postData(AppConstants.ORDERS_URI, body);
   }
+
+  Future<Response> getAllOrderList() async {
+    return await apiClient.getData(AppConstants.ORDERS_URI);
+  }
 }

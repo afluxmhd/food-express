@@ -1,4 +1,6 @@
+import 'package:food_express/controller/auth_controller.dart';
 import 'package:food_express/controller/cart_controller.dart';
+import 'package:food_express/data/repo/auth_repo.dart';
 import 'package:food_express/data/repo/cart_repo.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -18,8 +20,10 @@ Future<void> init() async {
   //repos
   Get.lazyPut(() => PopularProductRepo(apiClient: Get.find()));
   Get.lazyPut(() => CartRepo(sharedPreferences: Get.find(), apiClient: Get.find()));
+  Get.lazyPut(() => AuthRepo(apiClient: Get.find(), sharedPreferences: Get.find()));
 
   //controllers
   Get.lazyPut(() => PopularProductController(popularProductRepo: Get.find()));
   Get.lazyPut(() => CartController(cartRepo: Get.find()));
+  Get.lazyPut(() => AuthController(authRepo: Get.find()));
 }

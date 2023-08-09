@@ -1,5 +1,6 @@
 var OrderModel = require('../model/order_model')
 var productModel = require('../model/product_model')
+const UserModel = require('../model/user_model')
 
 
 async function addPopularProduct (product){
@@ -32,10 +33,8 @@ async function getPopularProductList (){
 
 async function addOrder(order){
     try {
-        console.log('Received order:', order);
         const newOrder = new OrderModel(order);
         const savedOrder = await newOrder.save();
-        console.log('Saved order:', savedOrder);
         return savedOrder;
     } catch (err) {
         throw err;
@@ -44,6 +43,50 @@ async function addOrder(order){
 
 async function getOrders(userId){
 
+
+}
+
+async function registerUser(user){
+    try{
+        const existingUser = await UserModel.findOne({ email: user.email });
+
+        if(existingUser){
+            return { message: 'User with this email already exists.' }
+        }
+        const newUser = new UserModel(user)
+        const savedUser = await newUser.save()
+        return savedUser
+    }catch(err){
+        throw err
+    }
+}
+
+async function loginUser(existingUser){
+    try{
+        const user = await UserModel.findOne({ email: existingUser.email });
+
+        console.log(existingUser.password)
+        console.log(existingUser.password)
+
+       
+        if(!user){
+            return { message: 'User with this email not exist.' }
+        }else{
+           if(existingUser.password == user.password ){
+            return { message: 'Login successful' ,token: 'FX012323hGhd#24'};
+           }else{
+            return { message: 'Incorrect password' };
+           }
+        }
+
+    }catch(err){
+        throw err
+    }
+}
+
+const userDb={
+    registerUser,
+    loginUser
 }
 
 const orderDb={
@@ -60,4 +103,5 @@ const productDb = {
 module.exports = {
     orderDb,
     productDb,
+    userDb
 };

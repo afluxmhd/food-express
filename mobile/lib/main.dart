@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:food_express/routes/route_helper.dart';
-
 import 'package:food_express/helper/dependencies.dart' as dep;
-
 import 'package:get/get.dart';
 
 Future<void> main() async {
