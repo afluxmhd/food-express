@@ -64,16 +64,12 @@ async function registerUser(user){
 async function loginUser(existingUser){
     try{
         const user = await UserModel.findOne({ email: existingUser.email });
-
-        console.log(existingUser.password)
-        console.log(existingUser.password)
-
        
         if(!user){
             return { message: 'User with this email not exist.' }
         }else{
            if(existingUser.password == user.password ){
-            return { message: 'Login successful' ,token: 'FX012323hGhd#24'};
+            return { message: 'Login successful' ,token: 'FX012323hGhd#24', userId : user._id};
            }else{
             return { message: 'Incorrect password' };
            }
@@ -84,9 +80,20 @@ async function loginUser(existingUser){
     }
 }
 
+
+async function getUserInfo(userId){
+    try{
+        const userInfo = await UserModel.findOne({ _id: userId });
+       return userInfo
+    }catch(err){
+        throw err
+    }
+}
+
 const userDb={
     registerUser,
-    loginUser
+    loginUser,
+    getUserInfo,
 }
 
 const orderDb={

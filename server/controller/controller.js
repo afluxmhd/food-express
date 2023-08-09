@@ -1,3 +1,4 @@
+const { query } = require('express')
 const {productDb,orderDb,userDb} = require('../database/database')
 
 exports.homeRoute = (req,res)=>{
@@ -92,6 +93,13 @@ exports.loginUser = async(req,res)=>{
     
 }
 
-exports.getUserInfo = (req,res)=>{
+exports.getUserInfo = async(req,res)=>{
+    const userId = req.query.userId
+    try{
+        const userInfo = await userDb.getUserInfo(userId)
+        res.status(200).json(userInfo)
+    }catch(error){
+        res.status(500).json({ error: `No user Found: ${error}` });
+    }
     
 }

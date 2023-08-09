@@ -25,7 +25,12 @@ class AuthRepo {
     return await sharedPreferences.setString(AppConstants.TOKEN, token);
   }
 
+  Future<bool> saveId(String id) async {
+    return await sharedPreferences.setString(AppConstants.USER_ID, id);
+  }
+
   void logoutUser() async {
     sharedPreferences.remove(AppConstants.TOKEN);
+    sharedPreferences.remove(AppConstants.USER_ID);
   }
 }
