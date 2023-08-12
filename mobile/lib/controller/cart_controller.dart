@@ -1,5 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
+import 'package:food_express/base/show_custom_snackbar.dart';
+import 'package:food_express/controller/user_controller.dart';
 import 'package:food_express/model/order_model.dart';
 import 'package:get/get.dart';
 
@@ -18,6 +20,18 @@ class CartController extends GetxController {
 
   List<CartModel> storageItems = [];
 
+  bool _isLoading = false;
+  bool get isLoading => _isLoading;
+
+  List<OrderModel> _allOrders = [];
+  List<OrderModel> get allOrders => _allOrders;
+
+  List<String> filterOptions = ['Current', 'Completed', 'Cancelled'];
+  String _selectedFilterOption = 'Current';
+  String get selectedFilterOption => _selectedFilterOption;
+
+  bool _isloading = false;
+  bool get isloading => _isloading;
   void addItem(ProductModel product, int quantity) {
     var totalQuantity = 0;
     if (_items.containsKey(product.productId)) {
@@ -126,31 +140,84 @@ class CartController extends GetxController {
   }
 
   void addToOrderList() {
+    _isLoading = true;
+    update();
     List<OrderProduct> products = [];
     int totalQuantity = 0;
 
     for (var cart in getItems) {
-      products.add(OrderProduct(productId: cart.product.mongoId, quantity: cart.quantity));
+      products.add(OrderProduct(productId: cart.product, quantity: cart.quantity));
       totalQuantity += cart.quantity;
     }
+    String userId = Get.find<UserController>().userModel.id;
 
     OrderModel order = OrderModel(
-      userId: "NoUSerID",
+      userId: userId,
       status: "Pending",
       totalAmount: totalAmount,
       totalQuantity: totalQuantity,
       products: products,
+      createdAt: DateTime.now().toString(),
+      updatedAt: DateTime.now().toString(),
     );
+    print(DateTime.now().toString());
     dynamic orderBody = order.toMap();
 
     cartRepo.addToOrderList(orderBody).then((response) {
       if (response.statusCode == 200) {
         Get.snackbar("Order Placed", "Your order will reach soon", backgroundColor: AppColors.mainColor, colorText: Colors.white);
+        getAllOrders();
         clearCart();
       } else {
-        print(response.statusCode);
+        showCustomSnackbar('Check your internet connection', title: 'Order Failed');
       }
+
+      _isLoading = false;
+      update();
     });
+  }
+
+  // void printOrderDetails(OrderModel order) {
+  //   print('Order ID: ${order.mongoId}');
+  //   print('User ID: ${order.userId}');
+  //   print('Total Amount: ${order.totalAmount}');
+  //   print('Total Quantity: ${order.totalQuantity}');
+  //   print('Status: ${order.status}');
+  //   print('Created At: ${order.createdAt}');
+
+  //   print('Products:');
+  //   for (var product in order.products) {
+  //     print('  Product ID: ${product.productId.name}');
+  //     print('  Quantity: ${product.quantity}');
+  //   }
+  // }
+
+  void getAllOrders() async {
+    _isloading = true;
+    update();
+    String userId = Get.find<UserController>().getUserId();
+    Response response = await cartRepo.getAllOrderList(userId);
+
+    _allOrders = [];
+
+    for (dynamic json in response.body) {
+      _allOrders.add(OrderModel.fromMap(json));
+    }
+
+    // for (var order in _allOrders) {
+    //   printOrderDetails(order);
+    // }
+    _isloading = false;
+    update();
+  }
+
+  void changeFilterOption(String option) {
+    _isloading = true;
+    update();
+    _selectedFilterOption = option;
+    print('Selected filter opt:' + _selectedFilterOption);
+    _isloading = false;
+    update();
   }
 
   void clearCart() {

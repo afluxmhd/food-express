@@ -20,7 +20,6 @@ class AccountPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Get.find<UserController>().getUserInfo();
     return Padding(
         padding: EdgeInsets.only(left: Dimensions.width10, right: Dimensions.width20, top: Dimensions.height20 * 2),
         child: GetBuilder<UserController>(builder: (userController) {

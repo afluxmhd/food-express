@@ -17,6 +17,7 @@ class LocationPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       body: Padding(
         padding: EdgeInsets.only(left: Dimensions.width20, right: Dimensions.width20),
         child: Column(
@@ -28,7 +29,7 @@ class LocationPage extends StatelessWidget {
               children: [
                 GestureDetector(
                   onTap: () {
-                    Get.offNamed(RouteHelper.getInitial(3));
+                    Navigator.pop(context);
                   },
                   child: const AppIcon(
                     icon: Icons.arrow_back_ios_new_outlined,

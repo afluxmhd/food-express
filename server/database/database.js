@@ -42,7 +42,12 @@ async function addOrder(order){
 }
 
 async function getOrders(userId){
-
+    try{
+        const orders = OrderModel.find({userId : userId}).populate('products.productId').exec();
+        return orders
+    }catch(err){
+        throw err
+    }
 
 }
 

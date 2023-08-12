@@ -1,13 +1,25 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:food_express/routes/route_helper.dart';
 import 'package:food_express/utils/dimensions.dart';
 import 'package:food_express/widgets/big_text.dart';
 import 'package:get/get.dart';
 import '../../utils/colors.dart';
+import '../../widgets/modal_bottom_sheet_widget.dart';
 import '../../widgets/small_text.dart';
 
 class NotificationPage extends StatelessWidget {
   const NotificationPage({super.key});
+
+  Future<dynamic> openBottomSheet(BuildContext context) {
+    return ModalBottomSheetWidget(
+      options: const ['All', 'This Week', 'Today'],
+      selectedValue: 'Today',
+      onChanged: (value) {
+        print(value);
+      },
+    ).openBottomSheet(context);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +44,7 @@ class NotificationPage extends StatelessWidget {
                     children: [
                       RichText(
                           text: TextSpan(
-                              recognizer: null,
+                              recognizer: TapGestureRecognizer()..onTap = () => openBottomSheet(context),
                               text: "Today",
                               style: TextStyle(color: Colors.grey[600], fontSize: Dimensions.font16))),
                       const Icon(

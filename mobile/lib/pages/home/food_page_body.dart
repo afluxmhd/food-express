@@ -160,7 +160,7 @@ class _FoodPageBodyState extends State<FoodPageBody> {
                     );
                   },
                 )
-              : const CircularProgressIndicator();
+              : const Center(child: CircularProgressIndicator());
         })
       ],
     );

@@ -56,7 +56,7 @@ class CartRepo {
     return await apiClient.postData(AppConstants.ORDERS_URI, body);
   }
 
-  Future<Response> getAllOrderList() async {
-    return await apiClient.getData(AppConstants.ORDERS_URI);
+  Future<Response> getAllOrderList(String userId) async {
+    return await apiClient.getData('${AppConstants.ORDERS_URI}/$userId');
   }
 }

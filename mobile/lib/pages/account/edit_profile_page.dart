@@ -31,7 +31,7 @@ class EditProfilePage extends StatelessWidget {
               children: [
                 GestureDetector(
                   onTap: () {
-                    Get.offNamed(RouteHelper.getInitial(3));
+                    Navigator.pop(context);
                   },
                   child: AppIcon(
                     icon: Icons.arrow_back_ios_new_outlined,

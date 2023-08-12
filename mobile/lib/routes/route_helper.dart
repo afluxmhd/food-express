@@ -1,3 +1,4 @@
+import 'package:food_express/base/custom_info_page.dart';
 import 'package:food_express/pages/account/account_page.dart';
 import 'package:food_express/pages/account/edit_profile_page.dart';
 import 'package:food_express/pages/location/location_page.dart';
@@ -40,7 +41,6 @@ class RouteHelper {
       name: initial,
       page: () {
         int index = int.parse(Get.parameters['index']!);
-
         return HomePage(selectedIndex: index);
       },
     ),
@@ -88,7 +88,7 @@ class RouteHelper {
     GetPage(
         name: signIn,
         page: () {
-          return const SignInPage();
+          return SignInPage();
         },
         transition: Transition.fade),
   ];

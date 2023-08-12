@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
-import 'package:get/get_connect/http/src/utils/utils.dart';
 
 import '../../controller/cart_controller.dart';
 import '../../controller/popular_product_controller.dart';
@@ -52,7 +51,7 @@ class PopularFoodDetail extends StatelessWidget {
                         if (page == 'cartpage') {
                           Get.toNamed(RouteHelper.getCartPage());
                         } else {
-                          Get.toNamed(RouteHelper.getInitial(0));
+                          Navigator.pop(context);
                         }
                       },
                       child: const AppIcon(icon: Icons.arrow_back_ios_new_outlined),

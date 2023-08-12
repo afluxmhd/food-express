@@ -36,33 +36,37 @@ class _HomePageState extends State<HomePage> {
       child: Scaffold(
         backgroundColor: Colors.white,
         body: pages[widget.selectedIndex],
-        bottomNavigationBar: BottomNavigationBar(
-          selectedItemColor: AppColors.mainColor,
-          unselectedItemColor: Colors.grey,
-          showSelectedLabels: false,
-          showUnselectedLabels: false,
-          currentIndex: widget.selectedIndex,
-          elevation: 0,
-          type: BottomNavigationBarType.fixed,
-          onTap: onTapNav,
-          items: const [
-            BottomNavigationBarItem(
-              icon: Icon(Icons.home_outlined, size: 26),
-              label: "Home",
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.list_alt_outlined),
-              label: "Orders",
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.notifications_outlined),
-              label: "Notification",
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.person_outline),
-              label: "User",
-            )
-          ],
+        bottomNavigationBar: SizedBox(
+          height: 60,
+          child: BottomNavigationBar(
+            backgroundColor: Colors.white,
+            selectedItemColor: AppColors.mainColor,
+            unselectedItemColor: Colors.grey,
+            showSelectedLabels: false,
+            showUnselectedLabels: false,
+            currentIndex: widget.selectedIndex,
+            elevation: 0,
+            type: BottomNavigationBarType.fixed,
+            onTap: onTapNav,
+            items: const [
+              BottomNavigationBarItem(
+                icon: Icon(Icons.home_outlined, size: 26),
+                label: "Home",
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.list_alt_outlined),
+                label: "Orders",
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.notifications_outlined),
+                label: "Notification",
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.person_outline),
+                label: "User",
+              )
+            ],
+          ),
         ),
       ),
     );

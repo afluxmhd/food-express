@@ -31,4 +31,8 @@ class UserController extends GetxController {
     update();
     return responseModel;
   }
+
+  String getUserId() {
+    return userRepo.getUserId();
+  }
 }

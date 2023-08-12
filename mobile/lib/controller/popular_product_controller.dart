@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:food_express/base/show_custom_snackbar.dart';
 import 'package:food_express/data/repo/popular_product_repo.dart';
 import 'package:food_express/model/product_model.dart';
 import 'package:get/get.dart';
@@ -42,8 +43,11 @@ class PopularProductController extends GetxController {
       _isloaded = true;
       print("Got popular products: Length is ${_popularProductList.length}");
       update();
-    } else {
+    } else if (response.statusCode == null) {
       print("Could not get popular products");
+      _isloaded = true;
+      showCustomSnackbar('Start the server!', title: 'Server Down');
+      update();
     }
   }
 
@@ -94,6 +98,8 @@ class PopularProductController extends GetxController {
     _cart.items.forEach((key, value) {
       print("The ID is ${value.id} | The quantity is ${value.quantity}");
     });
+    Get.snackbar("Product Added", "${product.name} has been added to your cart.",
+        backgroundColor: AppColors.mainColor, colorText: Colors.white);
     update();
   }
 
