@@ -1,5 +1,6 @@
 import 'package:food_express/controller/auth_controller.dart';
 import 'package:food_express/controller/cart_controller.dart';
+import 'package:food_express/controller/notification_controller.dart';
 import 'package:food_express/controller/user_controller.dart';
 import 'package:food_express/data/repo/auth_repo.dart';
 import 'package:food_express/data/repo/cart_repo.dart';
@@ -30,4 +31,5 @@ Future<void> init() async {
   Get.lazyPut(() => CartController(cartRepo: Get.find()));
   Get.lazyPut(() => AuthController(authRepo: Get.find()));
   Get.lazyPut(() => UserController(userRepo: Get.find()));
+  Get.lazyPut(() => NotificationController());
 }

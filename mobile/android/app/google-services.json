@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "881258065175",
+    "project_id": "food-express07",
+    "storage_bucket": "food-express07.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:881258065175:android:90297b0c28cbe16a905b52",
+        "android_client_info": {
+          "package_name": "com.example.food_express"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "881258065175-jd49laojecnrepj81lna30vin0quvo7k.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCaIAlrQFcRWf51QGJXADPQ43eUHc6s1cg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "881258065175-jd49laojecnrepj81lna30vin0quvo7k.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

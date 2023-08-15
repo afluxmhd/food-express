@@ -1,5 +1,7 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:food_express/base/custom_info_page.dart';
+import 'package:food_express/base/item_empty_page.dart';
 import 'package:food_express/controller/cart_controller.dart';
 import 'package:food_express/model/order_model.dart';
 import 'package:food_express/routes/route_helper.dart';
@@ -48,7 +50,6 @@ class MyOrders extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    //Issue raising, need to call somweherew
     return SafeArea(
         child: Padding(
       padding: EdgeInsets.only(left: Dimensions.width10, right: Dimensions.width10),
@@ -117,88 +118,93 @@ class MyOrders extends StatelessWidget {
             var allCanceledOrders = allOrders.where((order) => order.status == 'Cancelled').toList();
             return cartController.isloading
                 ? const Center(child: CircularProgressIndicator())
-                : ListView.builder(
-                    itemCount: _getItemCount(selectedFilter, allCurrentOrders, allCompletedOrders, allCanceledOrders),
-                    itemBuilder: (context, index) {
-                      OrderModel? order;
-                      if (selectedFilter == 'Current') {
-                        order = allCurrentOrders[index];
-                      } else if (selectedFilter == 'Completed') {
-                        order = allCompletedOrders[index];
-                      } else if (selectedFilter == 'Cancelled') {
-                        order = allCanceledOrders[index];
-                      } else {
-                        order = null;
-                      }
+                : allOrders.isEmpty
+                    ? ItemEmptyPage(
+                        imagePath: 'asset/order_history.png',
+                        title: 'No Orders Yet!',
+                        descriptionOne: "Looks like you haven't made your menu yet.")
+                    : ListView.builder(
+                        itemCount: _getItemCount(selectedFilter, allCurrentOrders, allCompletedOrders, allCanceledOrders),
+                        itemBuilder: (context, index) {
+                          OrderModel? order;
+                          if (selectedFilter == 'Current') {
+                            order = allCurrentOrders[index];
+                          } else if (selectedFilter == 'Completed') {
+                            order = allCompletedOrders[index];
+                          } else if (selectedFilter == 'Cancelled') {
+                            order = allCanceledOrders[index];
+                          } else {
+                            order = null;
+                          }
 
-                      return Container(
-                        height: 130,
-                        margin: EdgeInsets.only(bottom: Dimensions.height10),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              formatDate(order!.createdAt!),
-                              style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w500, color: Colors.grey),
-                            ),
-                            SizedBox(height: Dimensions.height10 - 4),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          return Container(
+                            height: 130,
+                            margin: EdgeInsets.only(bottom: Dimensions.height10),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Wrap(
-                                  direction: Axis.horizontal,
-                                  children: List.generate(order.products.length, (index) {
-                                    return Container(
-                                      height: 80,
-                                      width: 80,
-                                      margin: EdgeInsets.only(right: Dimensions.width10 / 2),
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(Dimensions.radius15 / 2),
-                                        color: AppColors.mainColor,
-                                      ),
-                                    );
-                                  }),
+                                Text(
+                                  formatDate(order!.createdAt!),
+                                  style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w500, color: Colors.grey),
                                 ),
-                                SizedBox(
-                                  height: 80,
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                    crossAxisAlignment: CrossAxisAlignment.end,
-                                    children: [
-                                      const Text(
-                                        "Total",
-                                        style: TextStyle(fontSize: 16, color: Colors.black),
+                                SizedBox(height: Dimensions.height10 - 4),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Wrap(
+                                      direction: Axis.horizontal,
+                                      children: List.generate(order.products.length, (index) {
+                                        return Container(
+                                          height: 80,
+                                          width: 80,
+                                          margin: EdgeInsets.only(right: Dimensions.width10 / 2),
+                                          decoration: BoxDecoration(
+                                            borderRadius: BorderRadius.circular(Dimensions.radius15 / 2),
+                                            color: AppColors.mainColor,
+                                          ),
+                                        );
+                                      }),
+                                    ),
+                                    SizedBox(
+                                      height: 80,
+                                      child: Column(
+                                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                        crossAxisAlignment: CrossAxisAlignment.end,
+                                        children: [
+                                          const Text(
+                                            "Total",
+                                            style: TextStyle(fontSize: 16, color: Colors.black),
+                                          ),
+                                          SizedBox(
+                                            height: Dimensions.height10 / 2,
+                                          ),
+                                          BigText(text: order.totalQuantity.toString()),
+                                          GestureDetector(
+                                            onTap: () {
+                                              print("Add to Cart");
+                                            },
+                                            child: Container(
+                                                padding: EdgeInsets.symmetric(
+                                                    horizontal: Dimensions.width10 / 2, vertical: Dimensions.height10 / 2),
+                                                decoration: BoxDecoration(
+                                                  color: order.status == 'Pending' ? AppColors.mainColor : Colors.green,
+                                                  borderRadius: BorderRadius.circular(Dimensions.radius15 / 3),
+                                                  border: Border.all(width: 1, color: AppColors.mainColor),
+                                                ),
+                                                child: SmallText(
+                                                  text: order.status == 'Pending' ? "On the way" : "Completed",
+                                                  color: Colors.white,
+                                                )),
+                                          )
+                                        ],
                                       ),
-                                      SizedBox(
-                                        height: Dimensions.height10 / 2,
-                                      ),
-                                      BigText(text: order.totalQuantity.toString()),
-                                      GestureDetector(
-                                        onTap: () {
-                                          print("Add to Cart");
-                                        },
-                                        child: Container(
-                                            padding: EdgeInsets.symmetric(
-                                                horizontal: Dimensions.width10 / 2, vertical: Dimensions.height10 / 2),
-                                            decoration: BoxDecoration(
-                                              color: AppColors.mainColor,
-                                              borderRadius: BorderRadius.circular(Dimensions.radius15 / 3),
-                                              border: Border.all(width: 1, color: AppColors.mainColor),
-                                            ),
-                                            child: SmallText(
-                                              text: order.status == 'Pending' ? "On the way" : "Completed",
-                                              color: Colors.white,
-                                            )),
-                                      )
-                                    ],
-                                  ),
+                                    )
+                                  ],
                                 )
                               ],
-                            )
-                          ],
-                        ),
-                      );
-                    });
+                            ),
+                          );
+                        });
           }))
         ],
       ),

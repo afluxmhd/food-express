@@ -15,4 +15,8 @@ class UserRepo {
   String getUserId() {
     return sharedPreferences.getString(AppConstants.USER_ID) ?? "";
   }
+
+  String getUserFcmToken() {
+    return sharedPreferences.getString(AppConstants.FCM_TOKEN) ?? "";
+  }
 }

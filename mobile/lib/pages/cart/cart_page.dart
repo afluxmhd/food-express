@@ -52,7 +52,7 @@ class CartPage extends StatelessWidget {
             GetBuilder<CartController>(builder: (cartController) {
               var _cartList = cartController.getItems;
               return _cartList.isEmpty
-                  ? const ItemEmptyPage(
+                  ? ItemEmptyPage(
                       imagePath: 'asset/empty_cart.png',
                       title: 'Your Cart is Empty',
                       descriptionOne: 'Explore our menu and add delicious dishes to your cart.')
@@ -173,18 +173,16 @@ class CartPage extends StatelessWidget {
               ),
             ),
             GestureDetector(
-              onTap: () {
+              onTap: () async {
                 if (cartController.getItems.isNotEmpty) {
-                  cartController.addToOrderList();
+                  String orderId = await cartController.addToOrderList();
                   fetchOrders();
-                  var orderID = cartController.allOrders[cartController.allOrders.length - 1].mongoId;
-                  print(orderID);
                   Get.to(
                       () => CustomInfoPage(
                             imagePath: 'asset/order_success.png',
                             title: 'Your Order Successful!',
                             descriptionOne: 'Your Order is on the way!',
-                            descriptionTwo: 'Order ID: $orderID',
+                            descriptionTwo: 'Order ID: $orderId',
                             onPressedMain: () {
                               Get.toNamed(RouteHelper.getInitial(1));
                             },

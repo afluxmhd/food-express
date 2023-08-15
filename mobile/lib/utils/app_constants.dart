@@ -16,6 +16,7 @@ class AppConstants {
   static const String USER_INFO_URI = "/api/user/info";
 
   static const String TOKEN = "FoodExpress";
+  static const String FCM_TOKEN = 'food-express-fcm-token';
   static const String USER_ID = 'user-id';
   static const String CART_LIST = "cart-list";
   static const String CART_HISTORY_LIST = "cart-history-list";

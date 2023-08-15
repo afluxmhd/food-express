@@ -1,0 +1,23 @@
+com.example.food_express.app-core-1.6.0-0 /Users/afluxmhd/.gradle/caches/transforms-3/03204e7a863cd68980f40b7d5a3e5e44/transformed/core-1.6.0/res
+com.example.food_express.app-jetified-firebase-common-20.3.3-1 /Users/afluxmhd/.gradle/caches/transforms-3/064a76c73b6601a225defec128e3b9c6/transformed/jetified-firebase-common-20.3.3/res
+com.example.food_express.app-jetified-play-services-basement-18.1.0-2 /Users/afluxmhd/.gradle/caches/transforms-3/0c3b05bd5fef9799346c299abe0831e9/transformed/jetified-play-services-basement-18.1.0/res
+com.example.food_express.app-jetified-window-java-1.0.0-beta04-3 /Users/afluxmhd/.gradle/caches/transforms-3/4aa4d160ec8811646ef49f7559ae16f1/transformed/jetified-window-java-1.0.0-beta04/res
+com.example.food_express.app-jetified-play-services-base-18.0.1-4 /Users/afluxmhd/.gradle/caches/transforms-3/8528d887a56b58773500439cf47e13af/transformed/jetified-play-services-base-18.0.1/res
+com.example.food_express.app-localbroadcastmanager-1.1.0-5 /Users/afluxmhd/.gradle/caches/transforms-3/8b8523ec8be38369dd5e08e20b9e06f6/transformed/localbroadcastmanager-1.1.0/res
+com.example.food_express.app-jetified-annotation-experimental-1.1.0-6 /Users/afluxmhd/.gradle/caches/transforms-3/8c07c387b91aa9a0f423e4416f85725d/transformed/jetified-annotation-experimental-1.1.0/res
+com.example.food_express.app-media-1.1.0-7 /Users/afluxmhd/.gradle/caches/transforms-3/9157499cf91f80fef34861c24dca1f4c/transformed/media-1.1.0/res
+com.example.food_express.app-jetified-firebase-messaging-23.2.0-8 /Users/afluxmhd/.gradle/caches/transforms-3/e28158da583c8ded6b833f6a685991ef/transformed/jetified-firebase-messaging-23.2.0/res
+com.example.food_express.app-jetified-window-1.0.0-beta04-9 /Users/afluxmhd/.gradle/caches/transforms-3/e4a8944d2b7a868dd4d180b83310bada/transformed/jetified-window-1.0.0-beta04/res
+com.example.food_express.app-debug-10 /Users/afluxmhd/My Projects/food_express/mobile/android/app/src/debug/res
+com.example.food_express.app-main-11 /Users/afluxmhd/My Projects/food_express/mobile/android/app/src/main/res
+com.example.food_express.app-google-services-12 /Users/afluxmhd/My Projects/food_express/mobile/build/app/generated/res/google-services/debug
+com.example.food_express.app-pngs-13 /Users/afluxmhd/My Projects/food_express/mobile/build/app/generated/res/pngs/debug
+com.example.food_express.app-resValues-14 /Users/afluxmhd/My Projects/food_express/mobile/build/app/generated/res/resValues/debug
+com.example.food_express.app-rs-15 /Users/afluxmhd/My Projects/food_express/mobile/build/app/generated/res/rs/debug
+com.example.food_express.app-mergeDebugResources-16 /Users/afluxmhd/My Projects/food_express/mobile/build/app/intermediates/incremental/debug/mergeDebugResources/merged.dir
+com.example.food_express.app-mergeDebugResources-17 /Users/afluxmhd/My Projects/food_express/mobile/build/app/intermediates/incremental/debug/mergeDebugResources/stripped.dir
+com.example.food_express.app-merged_res-18 /Users/afluxmhd/My Projects/food_express/mobile/build/app/intermediates/merged_res/debug
+com.example.food_express.app-packaged_res-19 /Users/afluxmhd/My Projects/food_express/mobile/build/firebase_core/intermediates/packaged_res/debug
+com.example.food_express.app-packaged_res-20 /Users/afluxmhd/My Projects/food_express/mobile/build/firebase_messaging/intermediates/packaged_res/debug
+com.example.food_express.app-packaged_res-21 /Users/afluxmhd/My Projects/food_express/mobile/build/flutter_local_notifications/intermediates/packaged_res/debug
+com.example.food_express.app-packaged_res-22 /Users/afluxmhd/My Projects/food_express/mobile/build/shared_preferences_android/intermediates/packaged_res/debug

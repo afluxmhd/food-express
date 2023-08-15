@@ -1,5 +1,9 @@
 const express = require('express')
 const controller = require('../controller/controller.js')
+const authController = require('../controller/auth_controller.js')
+const orderController = require('../controller/order_controller.js')
+const popularFoodController = require('../controller/popular_food_controller.js')
+const userController = require('../controller/user_controller.js')
 
 const route = express.Router()
 
@@ -14,51 +18,51 @@ route.get('/',controller.homeRoute)
  * @description Add Popular Food
  * @method POST/
  */
-route.post('/api/products/popular',controller.addPopularProduct)
+route.post('/api/products/popular',popularFoodController.addPopularProduct)
 
 /**
  * @description Delete Popular Food
  * @method DELETE/
  */
-route.delete('/api/products/popular/:productId',controller.deletePopularProduct)
+route.delete('/api/products/popular/:productId',popularFoodController.deletePopularProduct)
 
 /**
  * @description Retrieve all Popular Foods
  * @method GET/
  */
-route.get('/api/products/popular',(controller.getPopularProductList))
+route.get('/api/products/popular',popularFoodController.getPopularProductList)
 
 /**
  * @description Register a new user
  * @method POST/
  */
-route.post('/api/auth/register',controller.registerUser)
+route.post('/api/auth/register',authController.registerUser)
 
 /**
  * @description Login a new user
  * @method POST/
  */
-route.post('/api/auth/login',controller.loginUser)
+route.post('/api/auth/login',authController.loginUser)
 
 /**
  * @description Retrieve a user info
  * @method GET/
  */
-route.get('/api/user/info',controller.getUserInfo)
+route.get('/api/user/info',userController.getUserInfo)
 
 
 /**
  * @description create a new order
  * @method POST/
  */
-route.post('/api/orders',controller.createOrder)
+route.post('/api/orders',orderController.createOrder)
 
 
 /**
  * @description Retrieve all orders of a user
  * @method GET/
  */
-route.get('/api/orders/:id',controller.getOrders)
+route.get('/api/orders/:id',orderController.getOrders)
 module.exports = route;
 
 

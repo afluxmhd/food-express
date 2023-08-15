@@ -74,7 +74,13 @@ async function loginUser(existingUser){
             return { message: 'User with this email not exist.' }
         }else{
            if(existingUser.password == user.password ){
-            return { message: 'Login successful' ,token: 'FX012323hGhd#24', userId : user._id};
+
+            if(existingUser.fcmToken) {
+                user.fcmToken = existingUser.fcmToken;
+                await user.save(); // Save the updated user with the new fcmToken
+            }
+
+            return { message: 'Login successful' ,token: 'FX012323hGhd#24', userId : user._id,fcmToken : user.fcmToken};
            }else{
             return { message: 'Incorrect password' };
            }

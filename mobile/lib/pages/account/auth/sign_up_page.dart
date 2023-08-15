@@ -1,5 +1,6 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:food_express/helper/firebase.dart';
 import 'package:food_express/model/auth_model.dart';
 import 'package:food_express/pages/account/auth/sign_in_page.dart';
 import 'package:get/get.dart';
@@ -13,62 +14,70 @@ import '../../../widgets/app_text_field.dart';
 import '../../../widgets/big_text.dart';
 
 class SignUpPage extends StatelessWidget {
-  const SignUpPage({super.key});
+  SignUpPage({super.key});
+
+  var emailController = TextEditingController();
+  var passwordController = TextEditingController();
+  var nameController = TextEditingController();
+  var phoneController = TextEditingController();
+  var confirmPassowordController = TextEditingController();
+
+  Future<String> _getUserFcmToken() async {
+    String fcmToken = await FirebaseHelper().requestFCMPermissionAndPrintToken();
+    return fcmToken;
+  }
+
+  void registration() async {
+    var authController = Get.find<AuthController>();
+
+    // print(authController.isloading);
+
+    String name = nameController.text.trim();
+    String email = emailController.text.trim();
+    String phone = phoneController.text.trim();
+    String password = passwordController.text.trim();
+    String confirmPassword = confirmPassowordController.text.trim();
+
+    if (name.isEmpty) {
+      showCustomSnackbar("Please enter your name", title: "Name");
+    } else if (phone.isEmpty) {
+      showCustomSnackbar("Please enter your phone number", title: "Phone Number");
+    } else if (email.isEmpty) {
+      showCustomSnackbar("Please enter your email address", title: "Email");
+    } else if (!GetUtils.isEmail(email)) {
+      showCustomSnackbar("Please enter a valid email address", title: "Email");
+    } else if (password.isEmpty) {
+      showCustomSnackbar("Please enter your password", title: "Password");
+    } else if (password.length < 6) {
+      showCustomSnackbar("Password must be at least 6 characters long", title: "Password");
+    } else if (password != confirmPassword) {
+      showCustomSnackbar("Confirmed password does not match", title: "Password");
+    } else {
+      String fcmToken = await _getUserFcmToken();
+      AuthModel user = AuthModel(
+        fullName: name,
+        phone: phone,
+        email: email,
+        password: password,
+        city: 'Bangalore',
+        fcmToken: fcmToken,
+      );
+
+      print(user.toMap());
+
+      authController.registerUser(user).then((response) {
+        if (response.isSuccess) {
+          showCustomSnackbar("Sign-up successful! ${response.message}", title: "Success", isError: false);
+          Get.toNamed(RouteHelper.getSignInPage());
+        } else {
+          showCustomSnackbar(response.message, title: "Error");
+        }
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
-    var emailController = TextEditingController();
-    var passwordController = TextEditingController();
-    var nameController = TextEditingController();
-    var phoneController = TextEditingController();
-    var confirmPassowordController = TextEditingController();
-
-    void registration() {
-      var authController = Get.find<AuthController>();
-
-      // print(authController.isloading);
-
-      String name = nameController.text.trim();
-      String email = emailController.text.trim();
-      String phone = phoneController.text.trim();
-      String password = passwordController.text.trim();
-      String confirmPassword = confirmPassowordController.text.trim();
-
-      if (name.isEmpty) {
-        showCustomSnackbar("Please enter your name", title: "Name");
-      } else if (phone.isEmpty) {
-        showCustomSnackbar("Please enter your phone number", title: "Phone Number");
-      } else if (email.isEmpty) {
-        showCustomSnackbar("Please enter your email address", title: "Email");
-      } else if (!GetUtils.isEmail(email)) {
-        showCustomSnackbar("Please enter a valid email address", title: "Email");
-      } else if (password.isEmpty) {
-        showCustomSnackbar("Please enter your password", title: "Password");
-      } else if (password.length < 6) {
-        showCustomSnackbar("Password must be at least 6 characters long", title: "Password");
-      } else if (password != confirmPassword) {
-        showCustomSnackbar("Confirmed password does not match", title: "Password");
-      } else {
-        AuthModel user = AuthModel(fullName: name, phone: phone, email: email, password: password, city: 'Bangalore');
-        print('Full Name: ${user.fullName}');
-        print('Phone: ${user.phone}');
-        print('Email: ${user.email}');
-        print('Password: ${user.password}');
-        print('City: ${user.city}');
-
-        print(user.toMap());
-
-        authController.registerUser(user).then((response) {
-          if (response.isSuccess) {
-            showCustomSnackbar("Sign-up successful! ${response.message}", title: "Success", isError: false);
-            Get.toNamed(RouteHelper.getSignInPage());
-          } else {
-            showCustomSnackbar(response.message, title: "Error");
-          }
-        });
-      }
-    }
-
     return Scaffold(
         backgroundColor: Colors.white,
         body: SingleChildScrollView(

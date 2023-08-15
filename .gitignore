@@ -45,3 +45,7 @@ app.*.map.json
 
 #Nodejs file
 server/config.env
+server/food-express07-firebase-adminsdk-mzq1u-8309f33171.json
+
+#firebase
+mobile/lib/firebase_options.dart

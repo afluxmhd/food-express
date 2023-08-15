@@ -1,10 +1,6 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'package:food_express/controller/user_controller.dart';
 import 'package:food_express/model/response_model.dart';
 import 'package:get/get.dart';
-
 import 'package:food_express/data/repo/auth_repo.dart';
-
 import '../model/auth_model.dart';
 
 class AuthController extends GetxController {
@@ -21,6 +17,7 @@ class AuthController extends GetxController {
     late ResponseModel responseModel;
     if (response.statusCode! == 200) {
       responseModel = ResponseModel(true, response.body['_id']);
+      authRepo.saveFcmToken(user.fcmToken!);
     } else if (response.statusCode == 409) {
       responseModel = ResponseModel(false, response.body['message']);
     } else {
@@ -39,6 +36,7 @@ class AuthController extends GetxController {
     if (response.statusCode! == 200) {
       responseModel = ResponseModel(true, response.body['token']);
       authRepo.saveUserToken(response.body['token']);
+      authRepo.saveFcmToken(user.fcmToken!);
       authRepo.saveId(response.body['userId']);
     } else if (response.statusCode == 401) {
       responseModel = ResponseModel(false, response.body['message']);

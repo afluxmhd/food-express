@@ -4,9 +4,7 @@ import 'package:food_express/base/show_custom_snackbar.dart';
 import 'package:food_express/controller/user_controller.dart';
 import 'package:food_express/model/order_model.dart';
 import 'package:get/get.dart';
-
 import 'package:food_express/data/repo/cart_repo.dart';
-
 import '../model/cart_model.dart';
 import '../model/product_model.dart';
 import '../utils/colors.dart';
@@ -139,7 +137,7 @@ class CartController extends GetxController {
     return storageItems;
   }
 
-  void addToOrderList() {
+  Future<String> addToOrderList() async {
     _isLoading = true;
     update();
     List<OrderProduct> products = [];
@@ -160,37 +158,41 @@ class CartController extends GetxController {
       createdAt: DateTime.now().toString(),
       updatedAt: DateTime.now().toString(),
     );
-    print(DateTime.now().toString());
     dynamic orderBody = order.toMap();
+    String orderId = " ";
 
-    cartRepo.addToOrderList(orderBody).then((response) {
+    try {
+      var response = await cartRepo.addToOrderList(orderBody);
       if (response.statusCode == 200) {
-        Get.snackbar("Order Placed", "Your order will reach soon", backgroundColor: AppColors.mainColor, colorText: Colors.white);
-        getAllOrders();
         clearCart();
+        orderId = response.body['_id'];
+        print(orderId);
+        print('Success order');
       } else {
-        showCustomSnackbar('Check your internet connection', title: 'Order Failed');
+        showCustomSnackbar('Something Went Wrong.', title: 'Order Failed');
+        orderId = 'Order Failed';
       }
-
-      _isLoading = false;
-      update();
-    });
+    } catch (error) {
+      showCustomSnackbar('An error occurred.', title: 'Order Failed');
+      orderId = 'Order Failed';
+    }
+    return orderId;
   }
 
-  // void printOrderDetails(OrderModel order) {
-  //   print('Order ID: ${order.mongoId}');
-  //   print('User ID: ${order.userId}');
-  //   print('Total Amount: ${order.totalAmount}');
-  //   print('Total Quantity: ${order.totalQuantity}');
-  //   print('Status: ${order.status}');
-  //   print('Created At: ${order.createdAt}');
+  void printOrderDetails(OrderModel order) {
+    print('Order ID: ${order.mongoId}');
+    print('User ID: ${order.userId}');
+    print('Total Amount: ${order.totalAmount}');
+    print('Total Quantity: ${order.totalQuantity}');
+    print('Status: ${order.status}');
+    print('Created At: ${order.createdAt}');
 
-  //   print('Products:');
-  //   for (var product in order.products) {
-  //     print('  Product ID: ${product.productId.name}');
-  //     print('  Quantity: ${product.quantity}');
-  //   }
-  // }
+    print('Products:');
+    for (var product in order.products) {
+      print('  Product ID: ${product.productId.name}');
+      print('  Quantity: ${product.quantity}');
+    }
+  }
 
   void getAllOrders() async {
     _isloading = true;
@@ -203,10 +205,8 @@ class CartController extends GetxController {
     for (dynamic json in response.body) {
       _allOrders.add(OrderModel.fromMap(json));
     }
+    print('All orders fetched ${_allOrders.length}');
 
-    // for (var order in _allOrders) {
-    //   printOrderDetails(order);
-    // }
     _isloading = false;
     update();
   }

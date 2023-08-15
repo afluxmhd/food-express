@@ -29,8 +29,14 @@ class AuthRepo {
     return await sharedPreferences.setString(AppConstants.USER_ID, id);
   }
 
+  Future<bool> saveFcmToken(String fcmToken) async {
+    return await sharedPreferences.setString(AppConstants.FCM_TOKEN, fcmToken);
+  }
+
   void logoutUser() async {
     sharedPreferences.remove(AppConstants.TOKEN);
     sharedPreferences.remove(AppConstants.USER_ID);
+    sharedPreferences.remove(AppConstants.FCM_TOKEN);
+    print('Removed Fcmtoken,userId,login token from Local Storage!');
   }
 }

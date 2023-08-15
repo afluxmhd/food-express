@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import '../../../base/show_custom_snackbar.dart';
 import '../../../controller/auth_controller.dart';
 import '../../../controller/user_controller.dart';
+import '../../../helper/firebase.dart';
 import '../../../model/auth_model.dart';
 import '../../../routes/route_helper.dart';
 import '../../../utils/colors.dart';
@@ -27,7 +28,12 @@ class SignInPage extends StatelessWidget {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
 
-  void login() {
+  Future<String> _getUserFcmToken() async {
+    String fcmToken = await FirebaseHelper().requestFCMPermissionAndPrintToken();
+    return fcmToken;
+  }
+
+  void login() async {
     var authController = Get.find<AuthController>();
 
     String email = emailController.text.trim();
@@ -42,9 +48,13 @@ class SignInPage extends StatelessWidget {
     } else if (password.isEmpty) {
       showCustomSnackbar("Please enter your password", title: "Password");
     } else {
-      AuthModel user = AuthModel(email: email, password: password);
-      print('Email: ${user.email}');
-      print('Password: ${user.password}');
+      String fcmToken = await _getUserFcmToken();
+      AuthModel user = AuthModel(
+        email: email,
+        password: password,
+        fcmToken: fcmToken,
+      );
+      print(user.toMap());
 
       authController.loginUser(user).then((response) {
         if (response.isSuccess) {

@@ -35,4 +35,8 @@ class UserController extends GetxController {
   String getUserId() {
     return userRepo.getUserId();
   }
+
+  String getUserFcmToken() {
+    return userRepo.getUserFcmToken();
+  }
 }

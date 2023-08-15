@@ -83,7 +83,7 @@ class RouteHelper {
     GetPage(
         name: signUp,
         page: () {
-          return const SignUpPage();
+          return SignUpPage();
         }),
     GetPage(
         name: signIn,
