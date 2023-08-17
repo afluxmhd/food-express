@@ -8,6 +8,7 @@ import 'package:food_express/model/product_model.dart';
 class OrderModel {
   OrderModel({
     this.mongoId,
+    required this.orderId,
     required this.userId,
     required this.products,
     required this.totalAmount,
@@ -18,6 +19,7 @@ class OrderModel {
   });
 
   String? mongoId;
+  String orderId;
   String userId;
   List<OrderProduct> products;
   double totalAmount;
@@ -29,6 +31,7 @@ class OrderModel {
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
       'userId': userId,
+      'orderId': orderId,
       'products': products.map((x) => x.toMap()).toList(),
       'totalAmount': totalAmount,
       'totalQuantity': totalQuantity,
@@ -41,6 +44,7 @@ class OrderModel {
   factory OrderModel.fromMap(Map<String, dynamic> map) {
     return OrderModel(
       mongoId: map['_id'] != null ? map['_id'] as String : null,
+      orderId: map['orderId'] as String,
       userId: map['userId'] as String,
       products: List<OrderProduct>.from(
         (map['products'] as List<dynamic>).map<OrderProduct>(

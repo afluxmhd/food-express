@@ -1,4 +1,3 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 class NotificationModel {
   String title;
   String message;
@@ -8,4 +7,20 @@ class NotificationModel {
     required this.message,
     required this.time,
   });
+
+  Map<String, dynamic> toMap() {
+    return <String, dynamic>{
+      'title': title,
+      'message': message,
+      'time': time,
+    };
+  }
+
+  factory NotificationModel.fromMap(Map<String, dynamic> map) {
+    return NotificationModel(
+      title: map['title'] as String,
+      message: map['message'] as String,
+      time: map['time'] as String,
+    );
+  }
 }

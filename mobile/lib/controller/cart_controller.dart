@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:food_express/base/show_custom_snackbar.dart';
 import 'package:food_express/controller/user_controller.dart';
+import 'package:food_express/helper/generate_id.dart';
 import 'package:food_express/model/order_model.dart';
 import 'package:get/get.dart';
 import 'package:food_express/data/repo/cart_repo.dart';
@@ -30,6 +31,7 @@ class CartController extends GetxController {
 
   bool _isloading = false;
   bool get isloading => _isloading;
+
   void addItem(ProductModel product, int quantity) {
     var totalQuantity = 0;
     if (_items.containsKey(product.productId)) {
@@ -149,7 +151,10 @@ class CartController extends GetxController {
     }
     String userId = Get.find<UserController>().userModel.id;
 
+    String newOrderId = GenerateId().generateOrderId(userId);
+
     OrderModel order = OrderModel(
+      orderId: newOrderId,
       userId: userId,
       status: "Pending",
       totalAmount: totalAmount,
@@ -165,7 +170,7 @@ class CartController extends GetxController {
       var response = await cartRepo.addToOrderList(orderBody);
       if (response.statusCode == 200) {
         clearCart();
-        orderId = response.body['_id'];
+        orderId = response.body['orderId'];
         print(orderId);
         print('Success order');
       } else {

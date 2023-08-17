@@ -66,6 +66,9 @@ route.get('/api/orders/:id',orderController.getOrders)
 module.exports = route;
 
 
-
-
+/**
+ * @description Update the order
+ * @method PATCH/
+ */
+route.patch('/api/orders/:orderId',orderController.updateOrder)
 

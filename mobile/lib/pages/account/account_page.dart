@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:food_express/controller/auth_controller.dart';
+import 'package:food_express/controller/notification_controller.dart';
 import 'package:food_express/controller/user_controller.dart';
 import 'package:food_express/routes/route_helper.dart';
 import 'package:food_express/widgets/accounts_widget.dart';
@@ -88,12 +89,17 @@ class AccountPage extends StatelessWidget {
                     ),
                     const Divider(),
                     SizedBox(height: Dimensions.height20),
-                    AccountWidget(
-                      icon: Icons.notifications_off_outlined,
-                      bigText: BigText(text: 'Turn off Alert'),
-                      switchButton: true,
-                      switchValue: true,
-                    ),
+                    GetBuilder<NotificationController>(builder: (notificationController) {
+                      return AccountWidget(
+                        icon: Icons.notifications_off_outlined,
+                        bigText: BigText(text: 'Turn off Alert'),
+                        switchButton: true,
+                        switchValue: notificationController.isNotificationEnabled,
+                        onPressedSwitchButton: (value) {
+                          notificationController.changeNotificationAlert(value);
+                        },
+                      );
+                    }),
                     AccountWidget(
                       icon: Icons.clear_all,
                       bigText: BigText(text: 'Clear Notifcations'),

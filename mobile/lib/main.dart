@@ -8,10 +8,16 @@ import 'package:food_express/helper/dependencies.dart' as dep;
 import 'package:food_express/helper/firebase.dart' as firebase;
 import 'package:get/get.dart';
 
+import 'model/notification_model.dart';
+
 @pragma('vm:entry-point')
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   await Firebase.initializeApp();
-  print('Handling Background messages: ${message.messageId}');
+  await dep.init();
+  Get.find<NotificationController>().getNotificationData();
+  NotificationModel notification = NotificationModel(
+      title: message.notification!.title!, message: message.notification!.body!, time: DateTime.now().toString());
+  Get.find<NotificationController>().addNotification(notification);
 }
 
 Future<void> main() async {

@@ -1,6 +1,5 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:food_express/base/custom_info_page.dart';
 import 'package:food_express/base/item_empty_page.dart';
 import 'package:food_express/controller/cart_controller.dart';
 import 'package:food_express/model/order_model.dart';

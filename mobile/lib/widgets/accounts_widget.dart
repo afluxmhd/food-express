@@ -4,13 +4,20 @@ import 'big_text.dart';
 
 class AccountWidget extends StatelessWidget {
   const AccountWidget(
-      {super.key, required this.icon, required this.bigText, this.onPressed, this.switchButton = false, this.switchValue});
+      {super.key,
+      required this.icon,
+      required this.bigText,
+      this.onPressed,
+      this.switchButton = false,
+      this.switchValue,
+      this.onPressedSwitchButton});
 
   final IconData icon;
   final BigText bigText;
   final void Function()? onPressed;
   final bool switchButton;
   final bool? switchValue;
+  final void Function(bool)? onPressedSwitchButton;
 
   @override
   Widget build(BuildContext context) {
@@ -42,11 +49,7 @@ class AccountWidget extends StatelessWidget {
                         size: 20,
                       )
                     : switchButton
-                        ? Switch(
-                            value: switchValue!,
-                            onChanged: (value) {
-                              print(value);
-                            })
+                        ? Switch(value: switchValue!, onChanged: onPressedSwitchButton)
                         : const SizedBox()
               ],
             )

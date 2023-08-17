@@ -41,6 +41,26 @@ async function addOrder(order){
     }
 }
 
+async function updateOrder(orderId,newStatus){
+    try{
+        const existingOrder = await OrderModel.findOne({orderId : orderId})
+
+        if(!existingOrder){
+            return { message: 'Order ID with this Order is not exist' }
+        }
+        if(existingOrder.status==newStatus){
+            return { message: `Order status is already ${newStatus}` };
+        }
+
+        existingOrder.status=newStatus
+        await existingOrder.save()
+
+        return { message: `Order status updated to ${newStatus} successfully` };
+    }catch(err){
+        throw err
+    }
+}
+
 async function getOrders(userId){
     try{
         const orders = OrderModel.find({userId : userId}).populate('products.productId').exec();
@@ -110,6 +130,7 @@ const userDb={
 const orderDb={
     addOrder,
     getOrders,
+    updateOrder,
 }
 
 const productDb = {

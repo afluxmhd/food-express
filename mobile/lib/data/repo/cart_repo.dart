@@ -33,7 +33,6 @@ class CartRepo {
     List<String> carts = [];
     if (sharedPreferences.containsKey(AppConstants.CART_LIST)) {
       carts = sharedPreferences.getStringList(AppConstants.CART_LIST)!;
-      print("FETCHED DATA FROM SharedPref\n  :${carts}");
     }
     List<CartModel> cartList = [];
 
@@ -41,8 +40,6 @@ class CartRepo {
       Map<String, dynamic> map = json.decode(cart);
       return CartModel.fromMap(map);
     }).toList();
-
-    print('Length of CartList from Shared prefs: ' + cartList.length.toString());
 
     return cartList;
   }
