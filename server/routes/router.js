@@ -50,6 +50,12 @@ route.post('/api/auth/login',authController.loginUser)
  */
 route.get('/api/user/info',userController.getUserInfo)
 
+/**
+ * @description Update an user info
+ * @method POST/
+ */
+route.patch('/api/user/update/:id',userController.updateUserInfo)
+
 
 /**
  * @description create a new order
@@ -63,7 +69,6 @@ route.post('/api/orders',orderController.createOrder)
  * @method GET/
  */
 route.get('/api/orders/:id',orderController.getOrders)
-module.exports = route;
 
 
 /**
@@ -72,3 +77,4 @@ module.exports = route;
  */
 route.patch('/api/orders/:orderId',orderController.updateOrder)
 
+module.exports = route;

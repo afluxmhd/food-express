@@ -19,4 +19,8 @@ class UserRepo {
   String getUserFcmToken() {
     return sharedPreferences.getString(AppConstants.FCM_TOKEN) ?? "";
   }
+
+  Future<Response> updateUserInfo(String id, dynamic body) {
+    return apiClient.patchData('${AppConstants.USER_UPDATE_URI}/$id', body);
+  }
 }

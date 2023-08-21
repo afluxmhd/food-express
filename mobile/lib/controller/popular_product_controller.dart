@@ -98,8 +98,6 @@ class PopularProductController extends GetxController {
     _cart.items.forEach((key, value) {
       print("The ID is ${value.id} | The quantity is ${value.quantity}");
     });
-    Get.snackbar("Product Added", "${product.name} has been added to your cart.",
-        backgroundColor: AppColors.mainColor, colorText: Colors.white);
     update();
   }
 

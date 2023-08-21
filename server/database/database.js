@@ -121,10 +121,31 @@ async function getUserInfo(userId){
     }
 }
 
+async function updateUserInfo(userId,user){
+    try{
+       const existingUser = await UserModel.findOne({ _id: userId });
+
+       if(!existingUser){
+         return { message: 'User is not exist'}
+       }else{
+            const updateUser = await UserModel.findOneAndUpdate({_id: userId},{$set: user},{new: true})
+            
+            if(updateUser){
+                return updateUser
+            }else{
+                return {message: 'Error updating user'}
+            }
+       }
+    }catch(err){
+        throw err
+    }
+}
+
 const userDb={
     registerUser,
     loginUser,
     getUserInfo,
+    updateUserInfo
 }
 
 const orderDb={

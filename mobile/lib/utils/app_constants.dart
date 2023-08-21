@@ -14,6 +14,7 @@ class AppConstants {
   static const String REGISTER_URI = "/api/auth/register";
   static const String LOGIN_URI = "/api/auth/login";
   static const String USER_INFO_URI = "/api/user/info";
+  static const String USER_UPDATE_URI = "/api/user/update";
 
   static const String TOKEN = "FoodExpress";
   static const String FCM_TOKEN = 'food-express-fcm-token';

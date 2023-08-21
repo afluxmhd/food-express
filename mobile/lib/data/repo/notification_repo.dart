@@ -37,4 +37,9 @@ class NotificationRepo {
 
     return notificationList;
   }
+
+  void clear() {
+    sharedPreferences.remove(AppConstants.NOTIFICATION);
+    print('Notification removed from Storage');
+  }
 }

@@ -14,7 +14,7 @@ class MainFoodPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.only(left: Dimensions.width10, right: Dimensions.width10),
+      padding: EdgeInsets.only(left: Dimensions.width10, right: Dimensions.width10, top: 20),
       child: Column(
         children: [
           SizedBox(height: Dimensions.height10 * 2),

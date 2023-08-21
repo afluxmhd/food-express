@@ -179,6 +179,7 @@ class CartPage extends StatelessWidget {
                   fetchOrders();
                   Get.to(
                       () => CustomInfoPage(
+                            appBarTitle: 'Order',
                             imagePath: 'asset/order_success.png',
                             title: 'Your Order Successful!',
                             descriptionOne: 'Your Order is on the way!',

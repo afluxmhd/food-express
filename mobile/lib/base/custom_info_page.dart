@@ -16,10 +16,12 @@ class CustomInfoPage extends StatelessWidget {
       required this.descriptionOne,
       this.onPressedMain,
       this.descriptionTwo,
-      this.onPressedSecondary});
+      this.onPressedSecondary,
+      required this.appBarTitle});
 
   final String imagePath;
   final String title;
+  final String appBarTitle;
   final String descriptionOne;
   final String? descriptionTwo;
   final void Function()? onPressedMain;
@@ -43,6 +45,12 @@ class CustomInfoPage extends StatelessWidget {
                     iconColor: Colors.black,
                     backgroundColor: Colors.transparent,
                   ),
+                ),
+                SizedBox(width: 120),
+                BigText(
+                  text: appBarTitle,
+                  fontWeight: FontWeight.w500,
+                  size: 22,
                 )
               ],
             ),

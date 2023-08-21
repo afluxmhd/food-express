@@ -25,4 +25,15 @@ class ApiClient extends GetConnect implements GetxService {
       return const Response(statusCode: 1);
     }
   }
+
+  Future<Response> patchData(String uri, Map<String, dynamic> body) async {
+    try {
+      Response response = await patch(appBaseUrl + uri, body);
+      print(response.body);
+      return response;
+    } catch (e) {
+      print('Error: $e');
+      return const Response(statusCode: 1);
+    }
+  }
 }

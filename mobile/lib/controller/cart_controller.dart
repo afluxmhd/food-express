@@ -65,6 +65,8 @@ class CartController extends GetxController {
             product: product,
           );
         });
+        Get.snackbar("Product Added", "${product.name} has been added to your cart.",
+            backgroundColor: AppColors.mainColor, colorText: Colors.white);
       } else {
         Get.snackbar("Item count", "You should atleast add 1 item in the cart",
             backgroundColor: AppColors.mainColor, colorText: Colors.white);
@@ -149,7 +151,7 @@ class CartController extends GetxController {
       products.add(OrderProduct(productId: cart.product, quantity: cart.quantity));
       totalQuantity += cart.quantity;
     }
-    String userId = Get.find<UserController>().userModel.id;
+    String userId = Get.find<UserController>().userModel.id!;
 
     String newOrderId = GenerateId().generateOrderId(userId);
 

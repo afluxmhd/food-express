@@ -93,4 +93,10 @@ class NotificationController extends GetxController {
         backgroundColor: AppColors.mainColor, colorText: Colors.white);
     update();
   }
+
+  void clearNotificationHistory() {
+    _notificationList = [];
+    notificationRepo.clear();
+    update();
+  }
 }

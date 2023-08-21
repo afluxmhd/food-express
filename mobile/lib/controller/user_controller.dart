@@ -32,6 +32,25 @@ class UserController extends GetxController {
     return responseModel;
   }
 
+  Future<ResponseModel> updateUserInfo(UserModel user) async {
+    _isloading = true;
+    update();
+    String userId = userRepo.getUserId();
+    Response response = await userRepo.updateUserInfo(userId, user.toMap());
+    late ResponseModel responseModel;
+    print('Testing: ${response.body}');
+    if (response.statusCode == 200) {
+      _userModel = UserModel.fromMap(response.body);
+      responseModel = ResponseModel(true, 'Succesfully');
+    } else {
+      responseModel = ResponseModel(false, response.statusText!);
+    }
+    getUserInfo();
+    _isloading = false;
+    update();
+    return responseModel;
+  }
+
   String getUserId() {
     return userRepo.getUserId();
   }

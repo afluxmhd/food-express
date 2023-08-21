@@ -49,9 +49,8 @@ class MyOrders extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-        child: Padding(
-      padding: EdgeInsets.only(left: Dimensions.width10, right: Dimensions.width10),
+    return Padding(
+      padding: EdgeInsets.only(left: Dimensions.width10, right: Dimensions.width10, top: 20),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -207,6 +206,6 @@ class MyOrders extends StatelessWidget {
           }))
         ],
       ),
-    ));
+    );
   }
 }

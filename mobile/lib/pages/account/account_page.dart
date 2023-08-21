@@ -22,7 +22,7 @@ class AccountPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-        padding: EdgeInsets.only(left: Dimensions.width10, right: Dimensions.width20, top: Dimensions.height20 * 2),
+        padding: const EdgeInsets.only(left: 10, right: 15, top: 50),
         child: GetBuilder<UserController>(builder: (userController) {
           return userController.isloading
               ? const Center(child: CircularProgressIndicator())
@@ -90,33 +90,37 @@ class AccountPage extends StatelessWidget {
                     const Divider(),
                     SizedBox(height: Dimensions.height20),
                     GetBuilder<NotificationController>(builder: (notificationController) {
-                      return AccountWidget(
-                        icon: Icons.notifications_off_outlined,
-                        bigText: BigText(text: 'Turn off Alert'),
-                        switchButton: true,
-                        switchValue: notificationController.isNotificationEnabled,
-                        onPressedSwitchButton: (value) {
-                          notificationController.changeNotificationAlert(value);
-                        },
+                      return SizedBox(
+                        height: 50,
+                        child: AccountWidget(
+                          icon: Icons.notifications_off_outlined,
+                          bigText: BigText(text: 'Turn off Notifications'),
+                          switchButton: true,
+                          switchValue: notificationController.isNotificationEnabled,
+                          onPressedSwitchButton: (value) {
+                            notificationController.changeNotificationAlert(value);
+                          },
+                        ),
                       );
                     }),
                     AccountWidget(
                       icon: Icons.clear_all,
                       bigText: BigText(text: 'Clear Notifcations'),
                       onPressed: () {
-                        print('Clear Notification');
+                        Get.find<NotificationController>().clearNotificationHistory();
                       },
                     ),
-                    AccountWidget(
-                      icon: Icons.history_outlined,
-                      bigText: BigText(text: 'Clear History'),
-                      onPressed: () {
-                        print('Clear History');
-                      },
-                    ),
+
                     const Divider(),
                     SizedBox(height: Dimensions.height20),
 
+                    AccountWidget(
+                      icon: Icons.privacy_tip_outlined,
+                      bigText: BigText(text: 'Privacy'),
+                      onPressed: () {
+                        print('Support');
+                      },
+                    ),
                     AccountWidget(
                       icon: Icons.call_made_outlined,
                       bigText: BigText(text: 'Support'),
