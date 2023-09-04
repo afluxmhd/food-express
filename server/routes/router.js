@@ -4,6 +4,7 @@ const authController = require('../controller/auth_controller.js')
 const orderController = require('../controller/order_controller.js')
 const popularFoodController = require('../controller/popular_food_controller.js')
 const userController = require('../controller/user_controller.js')
+const promoController = require('../controller/promo_controller.js')
 
 const route = express.Router()
 
@@ -76,5 +77,27 @@ route.get('/api/orders/:id',orderController.getOrders)
  * @method PATCH/
  */
 route.patch('/api/orders/:orderId',orderController.updateOrder)
+
+
+/**
+ * @description Create the promocode
+ * @method POST/
+ */
+route.post('/api/promo',promoController.createPromo)
+
+
+/**
+ * @description Update the promocode
+ * @method PATCH/
+ */
+route.patch('/api/promo',promoController.updatePromo)
+
+
+/**
+ * @description Delete the promocode
+ * @method DELETE/
+ */
+route.delete('/api/promo/:promoCode',promoController.deletePromo)
+
 
 module.exports = route;

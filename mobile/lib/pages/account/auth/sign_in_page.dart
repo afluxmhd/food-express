@@ -54,7 +54,7 @@ class SignInPage extends StatelessWidget {
         password: password,
         fcmToken: fcmToken,
       );
-      print(user.toMap());
+      print('Login initiated');
 
       authController.loginUser(user).then((response) {
         if (response.isSuccess) {
@@ -151,7 +151,6 @@ class SignInPage extends StatelessWidget {
               GestureDetector(
                 onTap: () {
                   login();
-                  print('Login initiated');
                 },
                 child: Container(
                   margin: const EdgeInsets.only(left: 12, right: 12),

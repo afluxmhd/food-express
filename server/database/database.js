@@ -1,6 +1,7 @@
 var OrderModel = require('../model/order_model')
 var productModel = require('../model/product_model')
-const UserModel = require('../model/user_model')
+var UserModel = require('../model/user_model')
+var PromoModel = require('../model/promo_model')
 
 
 async function addPopularProduct (product){
@@ -141,6 +142,54 @@ async function updateUserInfo(userId,user){
     }
 }
 
+async function createPromo(promo){
+    try{
+        const newPromo =  new PromoModel(promo)
+        const savedPromo = await newPromo.save()
+        return savedPromo
+    }catch(err){
+        throw err
+    }
+}
+
+async function updatePromo(promoCode,promo){
+    try{
+
+       const existingPromo = await PromoModel.findOne({code: promoCode})
+
+       if(!existingPromo){
+            return { message: 'Promo code not exist!'}
+       }else{
+        const updatedPromo = await PromoModel.findOneAndUpdate({code: promo.code},promo,{new: true})
+        return updatedPromo;
+       }
+    }catch(err){
+        throw err
+    }
+}
+
+async function deletePromo(promoCode){
+    try{
+        const existingPromo = await PromoModel.findOne({code: promoCode})
+
+        if(!existingPromo){
+            return { message: 'Promo code not exist!'}
+        }else{
+            const deletedPromo = await PromoModel.findOneAndDelete({code: promoCode})
+            return { message: 'Promo Code succesfully deleted!', code: deletedPromo.code}
+        }
+    }catch(err){
+        throw err
+    }
+}
+
+
+const promoDb={
+    createPromo,
+    updatePromo,
+    deletePromo
+}
+
 const userDb={
     registerUser,
     loginUser,
@@ -163,5 +212,6 @@ const productDb = {
 module.exports = {
     orderDb,
     productDb,
-    userDb
+    userDb,
+    promoDb
 };

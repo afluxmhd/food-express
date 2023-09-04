@@ -7,7 +7,6 @@ import 'package:food_express/routes/route_helper.dart';
 import 'package:food_express/helper/dependencies.dart' as dep;
 import 'package:food_express/helper/firebase.dart' as firebase;
 import 'package:get/get.dart';
-
 import 'model/notification_model.dart';
 
 @pragma('vm:entry-point')

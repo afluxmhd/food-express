@@ -2,6 +2,7 @@
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:food_express/base/show_custom_snackbar.dart';
 import 'package:get/get.dart';
 
 import 'package:food_express/model/notification_model.dart';
@@ -95,8 +96,15 @@ class NotificationController extends GetxController {
   }
 
   void clearNotificationHistory() {
+    if (_notificationList.isNotEmpty) {
+      Get.snackbar("Notification Cleared", " Notifications history has been cleared",
+          backgroundColor: AppColors.mainColor, colorText: Colors.white);
+    } else {
+      showCustomSnackbar('Notification history not available', title: 'No Notification');
+    }
     _notificationList = [];
     notificationRepo.clear();
+
     update();
   }
 }
