@@ -10,6 +10,9 @@ class AppConstants {
   //orders endpoints
   static const String ORDERS_URI = "/api/orders";
 
+  //promocodes endpoints
+  static const String PROMO_URI = '/api/promo';
+
   //auth endpoints
   static const String REGISTER_URI = "/api/auth/register";
   static const String LOGIN_URI = "/api/auth/login";

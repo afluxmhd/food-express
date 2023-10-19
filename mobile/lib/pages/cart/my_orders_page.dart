@@ -106,7 +106,7 @@ class MyOrders extends StatelessWidget {
             ],
           ),
           //History Section
-          SizedBox(height: Dimensions.height20),
+
           Expanded(child: GetBuilder<CartController>(builder: (cartController) {
             String selectedFilter = cartController.selectedFilterOption;
 
@@ -202,7 +202,8 @@ class MyOrders extends StatelessWidget {
                               ],
                             ),
                           );
-                        });
+                        },
+                      );
           }))
         ],
       ),

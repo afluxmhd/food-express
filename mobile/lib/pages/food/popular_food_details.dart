@@ -34,8 +34,8 @@ class PopularFoodDetail extends StatelessWidget {
                 child: Container(
                   width: double.maxFinite,
                   height: Dimensions.popularFoodImgSize,
-                  decoration: const BoxDecoration(
-                      image: DecorationImage(fit: BoxFit.cover, image: AssetImage("asset/indian_chicken_biriryani.jpg"))),
+                  decoration:
+                      const BoxDecoration(image: DecorationImage(fit: BoxFit.cover, image: AssetImage("asset/shawarma.png"))),
                 ),
               ),
               //icon widgets

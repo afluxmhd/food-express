@@ -31,7 +31,6 @@ class _FoodPageBodyState extends State<FoodPageBody> {
     pageController.addListener(() {
       setState(() {
         _currentPageValue = pageController.page!;
-        print(_currentPageValue);
       });
     });
   }
@@ -69,7 +68,7 @@ class _FoodPageBodyState extends State<FoodPageBody> {
           ),
         ),
         Container(
-          margin: EdgeInsets.only(left: Dimensions.width10, bottom: Dimensions.height20, right: Dimensions.width10),
+          margin: EdgeInsets.only(left: Dimensions.width10, right: Dimensions.width10),
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.end,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -95,6 +94,7 @@ class _FoodPageBodyState extends State<FoodPageBody> {
                   shrinkWrap: true,
                   itemCount: popularProductController.popularProductList.length,
                   itemBuilder: (context, index) {
+                    var product = popularProductController.popularProductList[index];
                     return GestureDetector(
                       onTap: () {
                         Get.toNamed(RouteHelper.getPopularFood(index, 'home'));
@@ -112,7 +112,7 @@ class _FoodPageBodyState extends State<FoodPageBody> {
                                   image: const DecorationImage(
                                       fit: BoxFit.cover,
                                       image: AssetImage(
-                                        "asset/indian_chicken_biriryani.jpg",
+                                        "asset/shawarma.png",
                                       ))),
                             ),
                             //text section
@@ -130,10 +130,10 @@ class _FoodPageBodyState extends State<FoodPageBody> {
                                     crossAxisAlignment: CrossAxisAlignment.start,
                                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                     children: [
-                                      BigText(text: popularProductController.popularProductList[index].name),
+                                      BigText(text: product.name),
                                       SmallText(
-                                          text: popularProductController.popularProductList[index].description.length < 24
-                                              ? popularProductController.popularProductList[index].description
+                                          text: product.description.length < 24
+                                              ? product.description
                                               : "One of the Popular and most rated food"),
                                       SizedBox(
                                         height: Dimensions.height20,
@@ -198,15 +198,15 @@ class _FoodPageBodyState extends State<FoodPageBody> {
               //Move to Popular Food
             },
             child: Container(
-              height: Dimensions.pageViewContainer,
+              height: Dimensions.pageViewContainer - 0,
               margin: const EdgeInsets.only(left: 5, right: 5),
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(Dimensions.radius15),
                   color: const Color(0xFF69c5df),
                   image: const DecorationImage(
-                    fit: BoxFit.cover,
+                    fit: BoxFit.fill,
                     image: AssetImage(
-                      "asset/indian_chicken_biriryani.jpg",
+                      "asset/promotion.png",
                     ),
                   )),
             ),

@@ -4,6 +4,7 @@ import 'package:food_express/base/show_custom_snackbar.dart';
 import 'package:food_express/controller/auth_controller.dart';
 import 'package:food_express/controller/cart_controller.dart';
 import 'package:food_express/controller/notification_controller.dart';
+import 'package:food_express/controller/promo_code_controller.dart';
 import 'package:get/get.dart';
 import '../../controller/popular_product_controller.dart';
 import '../../controller/user_controller.dart';
@@ -26,6 +27,7 @@ class _SplashPageState extends State<SplashPage> with TickerProviderStateMixin {
   bool isUserLogged = Get.find<AuthController>().isUserLoggedIn();
 
   Future<void> _loadResources() async {
+    await Get.find<PromoCodeController>().getPromoCodeList();
     await Get.find<PopularProductController>().getPopularProductList();
   }
 

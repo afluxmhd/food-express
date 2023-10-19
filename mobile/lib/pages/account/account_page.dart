@@ -16,7 +16,7 @@ class AccountPage extends StatelessWidget {
 
   void logoutUser() {
     Get.find<AuthController>().logoutUser();
-    Get.toNamed(RouteHelper.getSignInPage());
+    Get.offAndToNamed(RouteHelper.getSignInPage());
   }
 
   @override

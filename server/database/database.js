@@ -152,6 +152,15 @@ async function createPromo(promo){
     }
 }
 
+async function getAllPromo(){
+    try{
+        const allPromocodes = await PromoModel.find()
+        return allPromocodes;
+    }catch(err){
+        throw err
+    }
+}
+
 async function updatePromo(promoCode,promo){
     try{
 
@@ -186,6 +195,7 @@ async function deletePromo(promoCode){
 
 const promoDb={
     createPromo,
+    getAllPromo,
     updatePromo,
     deletePromo
 }

@@ -85,6 +85,12 @@ route.patch('/api/orders/:orderId',orderController.updateOrder)
  */
 route.post('/api/promo',promoController.createPromo)
 
+/**
+ * @description Get all the promocode
+ * @method GET/
+ */
+route.get('/api/promo',promoController.getAllPromo)
+
 
 /**
  * @description Update the promocode

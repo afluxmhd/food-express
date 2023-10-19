@@ -11,6 +11,15 @@ exports.createPromo = async (req,res)=>{
     }
 }
 
+exports.getAllPromo=async (req,res)=>{
+    try{
+      const allPromocodes = await promoDb.getAllPromo()
+      res.status(200).json(allPromocodes)
+    }catch(error){
+        res.status(500).json({error: `Failed to retrieve Promo code: ${error} `})
+    }
+}
+
 exports.updatePromo = async (req,res)=>{
     const promo = req.body
     const promoCode = promo.code

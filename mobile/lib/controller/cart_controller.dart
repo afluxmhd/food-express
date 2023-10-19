@@ -1,6 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:food_express/base/show_custom_snackbar.dart';
+import 'package:food_express/controller/promo_code_controller.dart';
 import 'package:food_express/controller/user_controller.dart';
 import 'package:food_express/helper/generate_id.dart';
 import 'package:food_express/model/order_model.dart';
@@ -19,9 +20,6 @@ class CartController extends GetxController {
 
   List<CartModel> storageItems = [];
 
-  bool _isLoading = false;
-  bool get isLoading => _isLoading;
-
   List<OrderModel> _allOrders = [];
   List<OrderModel> get allOrders => _allOrders;
 
@@ -31,6 +29,9 @@ class CartController extends GetxController {
 
   bool _isloading = false;
   bool get isloading => _isloading;
+
+  double _totalAmount = 0;
+  double get totalAmount => _totalAmount;
 
   void addItem(ProductModel product, int quantity) {
     var totalQuantity = 0;
@@ -109,12 +110,24 @@ class CartController extends GetxController {
     }).toList();
   }
 
-  double get totalAmount {
+  double get subTotalAmount {
     double total = 0;
     _items.forEach((key, value) {
       total += value.quantity * value.price;
     });
     return total;
+  }
+
+  void calculateTotalAmount(double discountValue) {
+    double totalAmount = subTotalAmount - discountValue + 4; //4 delivery charge
+
+    if (subTotalAmount == 0) {
+      _totalAmount = 0;
+    } else {
+      _totalAmount = totalAmount;
+    }
+
+    update();
   }
 
   //setter for _setCart
@@ -142,7 +155,7 @@ class CartController extends GetxController {
   }
 
   Future<String> addToOrderList() async {
-    _isLoading = true;
+    _isloading = true;
     update();
     List<OrderProduct> products = [];
     int totalQuantity = 0;
@@ -151,7 +164,7 @@ class CartController extends GetxController {
       products.add(OrderProduct(productId: cart.product, quantity: cart.quantity));
       totalQuantity += cart.quantity;
     }
-    String userId = Get.find<UserController>().userModel.id!;
+    String userId = Get.find<UserController>().userModel.id;
 
     String newOrderId = GenerateId().generateOrderId(userId);
 
@@ -186,21 +199,6 @@ class CartController extends GetxController {
     return orderId;
   }
 
-  void printOrderDetails(OrderModel order) {
-    print('Order ID: ${order.mongoId}');
-    print('User ID: ${order.userId}');
-    print('Total Amount: ${order.totalAmount}');
-    print('Total Quantity: ${order.totalQuantity}');
-    print('Status: ${order.status}');
-    print('Created At: ${order.createdAt}');
-
-    print('Products:');
-    for (var product in order.products) {
-      print('  Product ID: ${product.productId.name}');
-      print('  Quantity: ${product.quantity}');
-    }
-  }
-
   void getAllOrders() async {
     _isloading = true;
     update();
@@ -233,4 +231,6 @@ class CartController extends GetxController {
     print('Shared Preferences and ram cart removed');
     update();
   }
+
+  //Coupon Section
 }
