@@ -21,6 +21,6 @@ app.use(bodyparser.json())
 app.use('/',require('./routes/router.js'))
 
 app.listen(PORT,()=>{
-    console.log(`Server is running on http://localhost:${PORT}`)
+    console.log("Server is running on https://food-express-server-ndhc.onrender.com")
 })
 
